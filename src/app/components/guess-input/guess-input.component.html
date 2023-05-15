@@ -2,7 +2,7 @@
 
 <div class="guess-form">
   <mat-form-field class="guess-form-field">
-    <input matInput type="text" placeholder="Enter the word here" [(ngModel)]="value">
+    <input [disabled]="!gameStarted" matInput type="text" placeholder="Enter the word here" [(ngModel)]="value" (keydown.enter)="onGuessSubmit()">
     <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="onGuessSubmit()">
       <mat-icon>arrow_forward</mat-icon>
     </button>

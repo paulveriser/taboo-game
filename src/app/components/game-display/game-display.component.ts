@@ -9,21 +9,27 @@ export class GameDisplayComponent implements OnInit, OnChanges {
   @Input()
   displayType: 'timer' | 'score';
   @Input()
+  points: number;
+  @Input()
+  timePerWord: number;
+  @Input()
   gameStarted? = false;
   @Output()
   timeOver = new EventEmitter<void>;
 
   title: string;
-  timeLeft: number = 90;
-  points: number = 0;
   interval: any;
+  timeLeft: number;
 
   ngOnInit() {
     this.title = this.displayType === 'timer'?'Remaining time': 'Score';
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.displayType === 'timer' && changes['gameStarted'].currentValue === true) {
+    if (this.displayType === 'timer' && this.gameStarted && changes['points']) {
+      clearInterval(this.interval);
+      this.startTimer();
+    } else if (this.displayType === 'timer' && changes['gameStarted'].currentValue === true) {
       this.startTimer();
     } else if (this.displayType === 'timer' && changes['gameStarted'].currentValue === false) {
       this.endTimer();
@@ -34,23 +40,27 @@ export class GameDisplayComponent implements OnInit, OnChanges {
     if (this.displayType === 'timer') {
       return this.timeLeft + ' seconds';
     } else {
-      return this.points + ' points';
+      return this.points + ' point' + (this.points !== 1? 's': '');
     }
   }
 
   startTimer() {
+    this.timeLeft = this.timePerWord
     this.interval = setInterval(() => {
       if(this.timeLeft > 0) {
         this.timeLeft--;
       } else {
-        this.endTimer();
+        clearInterval(this.interval);
+        this.timeLeft = this.timePerWord;
+        this.startTimer()
+        this.timeOver.emit();
       }
     },1000)
   }
 
   endTimer() {
     clearInterval(this.interval);
-    this.timeLeft = 90;
+    this.timeLeft = this.timePerWord;
     this.timeOver.emit();
   }
 }

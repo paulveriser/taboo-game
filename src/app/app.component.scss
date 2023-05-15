@@ -22,20 +22,14 @@
   .score {
     width: 300px;
     height: 150px;
-    border: 1px solid lightgreen;
     display: flex;
     justify-content: center;
-  }
-
-  .score {
-    border: 1px solid lightblue;
   }
 }
 
 .word-description {
   width: 50vw;
   height: 25vh;
-  border: 1px solid lightcoral;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -54,7 +48,6 @@
 .guess-input {
   width: 75vw;
   height: 25vh;
-  border: 1px solid lightsalmon;
   display: flex;
   justify-content: center;
   align-items: center;
