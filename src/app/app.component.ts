@@ -122,7 +122,7 @@ export class AppComponent implements OnInit {
       showTitle: true,
       title: 'Player Stats',
       useBom: true,
-      noDownload: false,
+      noDownload: true,
       headers: ['WordID', 'guessed', 'attempts', 'time to success']
     };
 

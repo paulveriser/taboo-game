@@ -21,6 +21,7 @@
     "@angular/router": "^16.0.0",
     "file-saver": "^2.0.5",
     "material-design-icons": "^3.0.1",
+    "mongodb": "^5.5.0",
     "ngx-csv": "^0.3.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
