@@ -95,7 +95,7 @@ export class AppComponent implements OnInit {
       if(guessTracking.wordID === wordID) {
         return {
           guessed: guessTracking.guessed = guessed,
-          attempts: guessTracking.attempts++,
+          attempts: newAttempt? guessTracking.attempts++: guessTracking.attempts,
           timeToSuccess: guessed? guessTracking.timeToSuccess = this.getCurrentGuessTime(): guessTracking.timeToSuccess = -1,
         }
       } else {
@@ -125,5 +125,7 @@ export class AppComponent implements OnInit {
       noDownload: false,
       headers: ['WordID', 'guessed', 'attempts', 'time to success']
     };
+
+    new ngxCsv(this.gameSetup.playerStat.guessTrackings, 'test', options)
   }
 }
