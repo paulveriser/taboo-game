@@ -1,0 +1,11 @@
+<h1>What is your guess?</h1>
+
+<div class="guess-form">
+  <mat-form-field class="guess-form-field">
+    <input matInput type="text" placeholder="Enter the word here" [(ngModel)]="value">
+    <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="onGuessSubmit()">
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+
