@@ -58,3 +58,5 @@ export const CHATGPT_WORD_DESCRIPTIONS: TabooWordDescription[] = [
     wordDescription: 'An AI generated prompt to guess the word giraffe'
   },
 ]
+
+export const ALL_WORD_DESCRIPIONS: TabooWordDescription[] = HUMAN_WORD_DESCRIPTIONS.concat(CHATGPT_WORD_DESCRIPTIONS);

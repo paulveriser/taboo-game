@@ -1,0 +1,13 @@
+<div class="entry"[class.wrong-guess]="gameStarted && lastWordRight === false" [class.right-guess]="gameStarted && lastWordRight">
+  <h1>{{ getTitle() }}</h1>
+
+  <div class="guess-form">
+    <mat-form-field class="guess-form-field">
+      <input [disabled]="!gameStarted" matInput type="text" placeholder="Enter the word here" [(ngModel)]="value" (keydown.enter)="onGuessSubmit()">
+      <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="onGuessSubmit()">
+        <mat-icon>arrow_forward</mat-icon>
+      </button>
+    </mat-form-field>
+  </div>
+</div>
+

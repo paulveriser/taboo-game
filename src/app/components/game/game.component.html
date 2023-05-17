@@ -1,0 +1,48 @@
+<div class="entry">
+  <div class="game-info">
+    <div class="timer">
+      <app-game-display
+        displayType="timer"
+        [gameStarted]="gameSetup.gameStarted"
+        [timePerWord]="gameSetup.timePerWord"
+        [points]="gameSetup.playerStat.gamePoints"
+        (timeOver)="onTimeOver()"
+      ></app-game-display>
+    </div>
+    <div class="score">
+      <app-game-display
+        [points]="gameSetup.playerStat.gamePoints"
+        displayType="score"
+      ></app-game-display>
+    </div>
+  </div>
+
+  <div class="word-description">
+    <app-word-description
+      *ngIf="gameSetup.gameStarted"
+      [wordDescriptionPrompt]="gameSetup.wordsToGuess[gameSetup.wordCount].wordDescription"
+    >
+    </app-word-description>
+    <button
+      *ngIf="!gameSetup.gameStarted"
+      (click)="onStartGame()"
+      class="start-game-button"
+      mat-raised-button
+      color="accent"
+
+    >Start Game</button>
+  </div>
+
+  <div class="guess-input">
+    <app-guess-input
+      (guessSubmition)="onGuessSubmitted($event)"
+      [gameStarted]="gameSetup.gameStarted"
+      [lastWordRight]="lastWordRight"
+    >
+    </app-guess-input>
+  </div>
+
+  <div class="info">
+    <span>{{ infoText }}</span>
+  </div>
+</div>
