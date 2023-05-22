@@ -1,6 +1,19 @@
 <div class="entry">
-  <mat-card>
-    <mat-card-header>Title</mat-card-header>
-    <mat-card-content>Content</mat-card-content>
+  <mat-card class="statistic-card">
+    <mat-card-header class="title">{{ title }}</mat-card-header>
+    <mat-card-content class="content">
+      <div class="stat-value">
+        <div class="placeholder"></div>
+        <div class="number">
+          {{ value.value }}
+        </div>
+        <div class="unit">
+          {{ unit }}
+        </div>
+      </div>
+      <div class="word">
+        {{ value.wordID | getWordFromId}}
+      </div>
+    </mat-card-content>
   </mat-card>
 </div>

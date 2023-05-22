@@ -7,54 +7,54 @@ export interface TabooWordDescription {
 export const HUMAN_WORD_DESCRIPTIONS: TabooWordDescription[] = [
   {
     wordID: 'h1',
-    word: 'elephant',
+    word: 'Elephant',
     wordDescription: 'A human generated prompt to guess the word elephant'
   },
   {
     wordID: 'h2',
-    word: 'tiger',
+    word: 'Tiger',
     wordDescription: 'A human generated prompt to guess the word tiger'
   },
   {
     wordID: 'h3',
-    word: 'zebra',
+    word: 'Zebra',
     wordDescription: 'A human generated prompt to guess the word zebra'
   },
   {
     wordID: 'h4',
-    word: 'lion',
+    word: 'Lion',
     wordDescription: 'A human generated prompt to guess the word lion'
   },
   {
     wordID: 'h5',
-    word: 'giraffe',
+    word: 'Giraffe',
     wordDescription: 'A human generated prompt to guess the word giraffe'
   },
 ]
 export const CHATGPT_WORD_DESCRIPTIONS: TabooWordDescription[] = [
   {
     wordID: 'a1',
-    word: 'elephant',
+    word: 'Elephant',
     wordDescription: 'An AI generated prompt to guess the word elephant'
   },
   {
     wordID: 'a2',
-    word: 'tiger',
+    word: 'Tiger',
     wordDescription: 'An AI generated prompt to guess the word tiger'
   },
   {
     wordID: 'a3',
-    word: 'zebra',
+    word: 'Zebra',
     wordDescription: 'An AI generated prompt to guess the word zebra'
   },
   {
     wordID: 'a4',
-    word: 'lion',
+    word: 'Lion',
     wordDescription: 'An AI generated prompt to guess the word lion'
   },
   {
     wordID: 'a5',
-    word: 'giraffe',
+    word: 'Giraffe',
     wordDescription: 'An AI generated prompt to guess the word giraffe'
   },
 ]

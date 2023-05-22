@@ -6,7 +6,6 @@ import {
   HUMAN_WORD_DESCRIPTIONS,
   TabooWordDescription
 } from "../../constants/taboo-words.constant";
-import {ngxCsv} from "ngx-csv";
 
 @Component({
   selector: 'app-game',
@@ -82,7 +81,7 @@ export class GameComponent implements OnInit {
     });
     this.gameSetup = {
       gameStarted: false,
-      timePerWord: 60,
+      timePerWord: 6,
       numberOfWords: 4,
       wordsToGuess: words,
       wordCount: 0,
@@ -105,7 +104,7 @@ export class GameComponent implements OnInit {
     for (let humanDescription of humanDescriptions) {
       shuffledChatGPT = shuffledChatGPT.filter(chatGPTDescription => chatGPTDescription.word !== humanDescription.word);
       console.log(humanDescription);
-    };
+    }
 
     console.log(humanDescriptions.concat(shuffledChatGPT.slice(0, numberOfWords/2)).sort(() => 0.5 - Math.random()));
     // Get the other half of desired number of words from filtered chatGPT list
@@ -118,7 +117,7 @@ export class GameComponent implements OnInit {
         return {
           guessed: guessTracking.guessed = guessed,
           attempts: newAttempt? guessTracking.attempts++: guessTracking.attempts,
-          timeToSuccess: guessed? guessTracking.timeToSuccess = this.getCurrentGuessTime(): guessTracking.timeToSuccess = -1,
+          timeToSuccess: guessed? guessTracking.timeToSuccess = this.getCurrentGuessTime(): guessTracking.timeToSuccess = undefined,
         }
       } else {
         return guessTracking;
@@ -134,21 +133,4 @@ export class GameComponent implements OnInit {
     const endGuessTime = new Date().getTime();
     return (endGuessTime - this.startGuessTime)/1000;
   }
-
-  private writeToCSV() {
-    const options = {
-      fieldSeparator: ',',
-      quoteStrings: '"',
-      decimalseparator: '.',
-      showLabels: true,
-      showTitle: true,
-      title: 'Player Stats',
-      useBom: true,
-      noDownload: false,
-      headers: ['WordID', 'guessed', 'attempts', 'time to success']
-    };
-
-    new ngxCsv(this.gameSetup.playerStat.guessTrackings, 'tracked_results', options);
-  }
-
 }

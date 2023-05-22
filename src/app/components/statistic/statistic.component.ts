@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {BackendService} from "../../services/backend/backend.service";
 import {GuessTracking, PlayerStat} from "../../app.model";
 import {ALL_WORD_DESCRIPIONS} from "../../constants/taboo-words.constant";
+import {HighlightValue} from "./statistic-card/statistic-card.component";
 
 export interface LifetimeWordStatistics  {
   wordID: string;
@@ -25,6 +26,7 @@ export interface LifetimeWordStatistics  {
 })
 export class StatisticComponent implements OnInit {
   averageGamePoints = 0;
+  totalAttendences = 0;
   lifeTimeWordStats: LifetimeWordStatistics[] = [
     {
       wordID: ''
@@ -59,7 +61,38 @@ export class StatisticComponent implements OnInit {
       });
   }
 
+  getFastestGuess() {
+    let fastestGuess: HighlightValue = {value: 999, wordID: ''};
+    for (let lifetimeWordStat of this.lifeTimeWordStats) {
+      if (lifetimeWordStat.minimumTimeToSuccess < fastestGuess.value) {
+        fastestGuess = {
+          value: lifetimeWordStat.minimumTimeToSuccess,
+          wordID: lifetimeWordStat.wordID
+        }
+      }
+    }
+    return fastestGuess;
+  }
+
+  getMostAttempts() {
+    let mostAttempts: HighlightValue = {value: 0, wordID: ''};
+    for (let lifetimeWordStat of this.lifeTimeWordStats) {
+      if (lifetimeWordStat.maximumAttempts > mostAttempts.value) {
+        mostAttempts = {
+          value: lifetimeWordStat.maximumAttempts,
+          wordID: lifetimeWordStat.wordID
+        }
+      }
+    }
+    return mostAttempts;
+  }
+
+  getTotalAttendences(): HighlightValue {
+    return {value: this.totalAttendences, wordID: ''};
+  }
+
   private calculateStatistics(playerStats: PlayerStat[]) {
+    this.totalAttendences = playerStats.length;
     this.lifeTimeWordStats = [];
     for (let word of ALL_WORD_DESCRIPIONS) {
       this.lifeTimeWordStats.push({
@@ -127,4 +160,6 @@ export class StatisticComponent implements OnInit {
       }
     }
   }
+
+  protected readonly screen = screen;
 }

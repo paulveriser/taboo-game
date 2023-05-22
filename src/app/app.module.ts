@@ -21,6 +21,7 @@ import {MatTableModule} from "@angular/material/table";
 import { WelcomeComponent } from './components/welcome/welcome.component';
 import { StatisticCardComponent } from './components/statistic/statistic-card/statistic-card.component';
 import {MatCardModule} from "@angular/material/card";
+import { GetWordFromIdPipe } from './pipes/get-word-from-id.pipe';
 
 const appRoute: Routes = [
   {path: '', redirectTo: 'welcome', pathMatch: 'full'},
@@ -38,7 +39,8 @@ const appRoute: Routes = [
     GameComponent,
     StatisticComponent,
     WelcomeComponent,
-    StatisticCardComponent
+    StatisticCardComponent,
+    GetWordFromIdPipe
   ],
   imports: [
     BrowserModule,

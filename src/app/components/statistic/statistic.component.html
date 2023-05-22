@@ -6,9 +6,26 @@
 </div>
 
 <div class="statistic-cards">
-  <app-statistic-card class="small-card"></app-statistic-card>
-  <app-statistic-card class="medium-card"></app-statistic-card>
-  <app-statistic-card class="large-card"></app-statistic-card>
+  <app-statistic-card
+    class="statistic-card"
+    [title]="'Total attendences'"
+    [value]="getTotalAttendences()"
+    [unit]="'attendences'"
+  ></app-statistic-card>
+
+  <app-statistic-card
+    class="statistic-card"
+    [title]="'Fastest guess'"
+    [value]="getFastestGuess()"
+    [unit]="'sec'"
+  ></app-statistic-card>
+
+  <app-statistic-card
+    class="statistic-card"
+    [title]="'Most attempts'"
+    [value]="getMostAttempts()"
+    [unit]="'attempts'"
+  ></app-statistic-card>
 </div>
 
 <table mat-table [dataSource]="lifeTimeWordStats" class="mat-elevation-z8">
