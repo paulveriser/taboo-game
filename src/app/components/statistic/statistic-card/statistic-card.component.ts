@@ -1,4 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+
+export interface HighlightValue {
+  value: number,
+  wordID: string
+}
 
 @Component({
   selector: 'app-statistic-card',
@@ -6,5 +11,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./statistic-card.component.scss']
 })
 export class StatisticCardComponent {
-
+  @Input()
+  title: string;
+  @Input()
+  value: HighlightValue;
+  @Input()
+  unit: 'sec' | 'attempts' | 'guesses' | 'attendences';
 }

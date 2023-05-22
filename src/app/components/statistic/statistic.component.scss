@@ -18,17 +18,5 @@
 .statistic-cards {
   display: flex;
   gap: 20px;
-
-  .small-card {
-    width: 200px;
-    height: 200px;
-  }
-  .medium-card {
-    width: 400px;
-    height: 200px;
-  }
-  .large-card {
-    width: 600px;
-    height: 200px;
-  }
+  padding-bottom: 50px;
 }
