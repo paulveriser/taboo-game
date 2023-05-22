@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {BackendService} from "../../services/backend/backend.service";
-import {map} from "rxjs";
 import {GuessTracking, PlayerStat} from "../../app.model";
 import {HttpClient} from "@angular/common/http";
 import {ALL_WORD_DESCRIPIONS} from "../../constants/taboo-words.constant";
@@ -48,7 +47,7 @@ export class StatisticComponent implements OnInit {
     'maximumTimeToSuccess'
   ];
 
-  constructor(private backendService: BackendService, private httpClient: HttpClient) { }
+  constructor(private backendService: BackendService) { }
 
   ngOnInit() {
     this.reloadData();
