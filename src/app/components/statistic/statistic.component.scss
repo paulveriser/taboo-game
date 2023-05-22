@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.refresh-button {
+  transform: scale(2);
+  margin-right: 50px;
+}
+
+.invisible {
+  color: transparent;
+}
+
+.statistic-cards {
+  display: flex;
+  gap: 20px;
+
+  .small-card {
+    width: 200px;
+    height: 200px;
+  }
+  .medium-card {
+    width: 400px;
+    height: 200px;
+  }
+  .large-card {
+    width: 600px;
+    height: 200px;
+  }
+}

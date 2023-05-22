@@ -27,13 +27,34 @@ export interface LifetimeWordStatistics  {
 })
 export class StatisticComponent implements OnInit {
   averageGamePoints = 0;
-  lifeTimeWordStats: LifetimeWordStatistics[] = [];
+  lifeTimeWordStats: LifetimeWordStatistics[] = [
+    {
+      wordID: ''
+    } as LifetimeWordStatistics
+  ];
 
-  displayedColumns: string[] = ['wordID', 'averageAttempts'];
+  displayedColumns: string[] = [
+    'wordID',
+    'timesGuessedRight',
+    'timesGuessedWrong',
+    'timesGuessedTotal',
+    'totalAttempts',
+    'averageAttempts',
+    'minimumAttempts',
+    'maximumAttempts',
+    'totalTimeToSuccess',
+    'averageTimeToSuccess',
+    'minimumTimeToSuccess',
+    'maximumTimeToSuccess'
+  ];
 
   constructor(private backendService: BackendService, private httpClient: HttpClient) { }
 
   ngOnInit() {
+    this.reloadData();
+  }
+
+  reloadData() {
     this.backendService.getPlayerStats()
       .subscribe((response) => {
         this.calculateStatistics(response);
@@ -41,6 +62,7 @@ export class StatisticComponent implements OnInit {
   }
 
   private calculateStatistics(playerStats: PlayerStat[]) {
+    this.lifeTimeWordStats = [];
     for (let word of ALL_WORD_DESCRIPIONS) {
       this.lifeTimeWordStats.push({
         wordID: word.wordID,
@@ -49,12 +71,12 @@ export class StatisticComponent implements OnInit {
         timesGuessedTotal: 0,
         totalAttempts: 0,
         averageAttempts: 0,
-        minimumAttempts: -1,
-        maximumAttempts: 999,
+        minimumAttempts: 999,
+        maximumAttempts: 0,
         totalTimeToSuccess: 0,
         averageTimeToSuccess: 0,
-        minimumTimeToSuccess: -1,
-        maximumTimeToSuccess: 999
+        minimumTimeToSuccess: 999,
+        maximumTimeToSuccess: 0
       })
     }
 
@@ -65,12 +87,13 @@ export class StatisticComponent implements OnInit {
 
     // Calculate Averages
     this.averageGamePoints = this.averageGamePoints/playerStats.length;
+    this.averageGamePoints = Math.round(this.averageGamePoints * 1000) / 1000;
     for (let lifetimeWordStat of this.lifeTimeWordStats) {
       lifetimeWordStat.averageTimeToSuccess = lifetimeWordStat.totalTimeToSuccess/playerStats.length;
+      lifetimeWordStat.averageTimeToSuccess = Math.round(lifetimeWordStat.averageTimeToSuccess * 1000) / 1000;
       lifetimeWordStat.averageAttempts = lifetimeWordStat.totalAttempts/playerStats.length;
+      lifetimeWordStat.averageAttempts = Math.round(lifetimeWordStat.averageAttempts * 1000) / 1000;
     }
-
-    console.log(this.lifeTimeWordStats)
   }
 
   private updateLifetimeWordStats(guessTrackings: GuessTracking[]) {
@@ -89,16 +112,18 @@ export class StatisticComponent implements OnInit {
           lifetimeWordStat.totalAttempts += guessTracking.attempts;
           if (guessTracking.attempts > lifetimeWordStat.maximumAttempts) {
             lifetimeWordStat.maximumAttempts = guessTracking.attempts;
-          } else if (guessTracking.attempts < lifetimeWordStat.minimumAttempts) {
-            lifetimeWordStat.maximumAttempts = guessTracking.attempts;
+          }
+          if (guessTracking.attempts < lifetimeWordStat.minimumAttempts) {
+            lifetimeWordStat.minimumAttempts = guessTracking.attempts;
           }
 
           // Time to success Statistics
           lifetimeWordStat.totalTimeToSuccess += guessTracking.timeToSuccess;
           if (guessTracking.timeToSuccess > lifetimeWordStat.maximumTimeToSuccess) {
             lifetimeWordStat.maximumTimeToSuccess = guessTracking.timeToSuccess;
-          } else if (guessTracking.timeToSuccess < lifetimeWordStat.minimumTimeToSuccess) {
-            lifetimeWordStat.maximumTimeToSuccess = guessTracking.timeToSuccess;
+          }
+          if (guessTracking.timeToSuccess < lifetimeWordStat.minimumTimeToSuccess) {
+            lifetimeWordStat.minimumTimeToSuccess = guessTracking.timeToSuccess;
           }
         }
       }

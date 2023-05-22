@@ -18,9 +18,13 @@ import { StatisticComponent } from './components/statistic/statistic.component';
 import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatMenuModule} from "@angular/material/menu";
 import {MatTableModule} from "@angular/material/table";
+import { WelcomeComponent } from './components/welcome/welcome.component';
+import { StatisticCardComponent } from './components/statistic/statistic-card/statistic-card.component';
+import {MatCardModule} from "@angular/material/card";
 
 const appRoute: Routes = [
-  {path: '', redirectTo: 'game', pathMatch: 'full'},
+  {path: '', redirectTo: 'welcome', pathMatch: 'full'},
+  {path: 'welcome', component: WelcomeComponent},
   {path: 'game', component: GameComponent},
   {path: 'statistics', component: StatisticComponent}
 ]
@@ -32,7 +36,9 @@ const appRoute: Routes = [
     WordDescriptionComponent,
     GameDisplayComponent,
     GameComponent,
-    StatisticComponent
+    StatisticComponent,
+    WelcomeComponent,
+    StatisticCardComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +52,8 @@ const appRoute: Routes = [
     RouterModule.forRoot(appRoute),
     MatToolbarModule,
     MatMenuModule,
-    MatTableModule
+    MatTableModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -1,22 +1,80 @@
-<h1>Lifetime Game Stats:</h1>
+<div class="header">
+  <h1>Lifetime Game Stats:</h1>
+  <button mat-icon-button (click)="reloadData()" class="refresh-button">
+    <mat-icon class="refresh-icon">refresh</mat-icon>
+  </button>
+</div>
 
-<div>Test : </div>
-<div>{{averageGamePoints}}</div>
+<div class="statistic-cards">
+  <app-statistic-card class="small-card"></app-statistic-card>
+  <app-statistic-card class="medium-card"></app-statistic-card>
+  <app-statistic-card class="large-card"></app-statistic-card>
+</div>
 
 <table mat-table [dataSource]="lifeTimeWordStats" class="mat-elevation-z8">
 
-  <!-- Position Column -->
   <ng-container matColumnDef="wordID">
     <th mat-header-cell *matHeaderCellDef> WordID </th>
     <td mat-cell *matCellDef="let element"> {{element.wordID}} </td>
   </ng-container>
 
-  <!-- Name Column -->
+  <ng-container matColumnDef="timesGuessedRight">
+    <th mat-header-cell *matHeaderCellDef> timesGuessedRight </th>
+    <td mat-cell *matCellDef="let element"> {{element.timesGuessedRight}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="timesGuessedWrong">
+    <th mat-header-cell *matHeaderCellDef> timesGuessedWrong </th>
+    <td mat-cell *matCellDef="let element"> {{element.timesGuessedWrong}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="timesGuessedTotal">
+    <th mat-header-cell *matHeaderCellDef> timesGuessedTotal </th>
+    <td mat-cell *matCellDef="let element"> {{element.timesGuessedTotal}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="totalAttempts">
+    <th mat-header-cell *matHeaderCellDef> totalAttempts </th>
+    <td mat-cell *matCellDef="let element"> {{element.totalAttempts}} </td>
+  </ng-container>
+
   <ng-container matColumnDef="averageAttempts">
-    <th mat-header-cell *matHeaderCellDef> Average Attempts </th>
+    <th mat-header-cell *matHeaderCellDef> averageAttempts </th>
     <td mat-cell *matCellDef="let element"> {{element.averageAttempts}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="minimumAttempts">
+    <th mat-header-cell *matHeaderCellDef> minimumAttempts </th>
+    <td mat-cell *matCellDef="let element"> {{element.minimumAttempts}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="maximumAttempts">
+    <th mat-header-cell *matHeaderCellDef> maximumAttempts </th>
+    <td mat-cell *matCellDef="let element"> {{element.maximumAttempts}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="totalTimeToSuccess">
+    <th mat-header-cell *matHeaderCellDef> totalTimeToSuccess </th>
+    <td mat-cell *matCellDef="let element"> {{element.totalTimeToSuccess}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="averageTimeToSuccess">
+    <th mat-header-cell *matHeaderCellDef> averageTimeToSuccess </th>
+    <td mat-cell *matCellDef="let element"> {{element.averageTimeToSuccess}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="minimumTimeToSuccess">
+    <th mat-header-cell *matHeaderCellDef> minimumTimeToSuccess </th>
+    <td mat-cell *matCellDef="let element"> {{element.minimumTimeToSuccess}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="maximumTimeToSuccess">
+    <th mat-header-cell *matHeaderCellDef> maximumTimeToSuccess </th>
+    <td mat-cell *matCellDef="let element"> {{element.maximumTimeToSuccess}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+<div class="invisible">{{lifeTimeWordStats[0].wordID}}</div>
