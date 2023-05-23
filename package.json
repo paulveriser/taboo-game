@@ -19,14 +19,8 @@
     "@angular/platform-browser": "^16.0.0",
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
-    "file-saver": "^2.0.5",
-    "firebase": "^9.22.0",
     "material-design-icons": "^3.0.1",
-    "mongodb": "^5.5.0",
-    "ngx-csv": "^0.3.2",
     "rxjs": "~7.8.0",
-    "tslib": "^2.3.0",
-    "xlsx": "^0.18.5",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
