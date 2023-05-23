@@ -22,14 +22,29 @@
 
   <app-statistic-card
     class="statistic-card"
+    [title]="'Slowest Guess'"
+    [value]="getSlowestGuess()"
+    [unit]="'sec'"
+  ></app-statistic-card>
+
+  <app-statistic-card
+    class="statistic-card"
     [title]="'Most attempts'"
     [value]="getMostAttempts()"
     [unit]="'attempts'"
   ></app-statistic-card>
+
+  <app-statistic-card
+    class="statistic-card"
+    [title]="'Most unsolved'"
+    [value]="getMostUnsolved()"
+    [unit]="'times'"
+  ></app-statistic-card>
 </div>
 
-<table mat-table [dataSource]="lifeTimeWordStats" class="mat-elevation-z8">
+<h1>All Data:</h1>
 
+<table mat-table [dataSource]="lifeTimeWordStats" class="mat-elevation-z8">
   <ng-container matColumnDef="wordID">
     <th mat-header-cell *matHeaderCellDef> WordID </th>
     <td mat-cell *matCellDef="let element"> {{element.wordID}} </td>

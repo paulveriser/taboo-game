@@ -16,7 +16,26 @@
 }
 
 .statistic-cards {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
   gap: 20px;
-  padding-bottom: 50px;
+  padding: 0 75px 50px 75px;
+}
+
+@media(max-width: 1700px) {
+  .statistic-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 33%);
+    gap: 20px;
+    padding: 0 75px 50px 75px;
+  }
+}
+
+@media(max-width: 1350px) {
+  .statistic-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    gap: 20px;
+    padding: 0 75px 50px 75px;
+  }
 }
