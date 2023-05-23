@@ -74,6 +74,19 @@ export class StatisticComponent implements OnInit {
     return fastestGuess;
   }
 
+  getSlowestGuess() {
+    let slowestGuess: HighlightValue = {value: 0, wordID: ''};
+    for (let lifetimeWordStat of this.lifeTimeWordStats) {
+      if (lifetimeWordStat.maximumTimeToSuccess > slowestGuess.value) {
+        slowestGuess = {
+          value: lifetimeWordStat.maximumTimeToSuccess,
+          wordID: lifetimeWordStat.wordID
+        }
+      }
+    }
+    return slowestGuess;
+  }
+
   getMostAttempts() {
     let mostAttempts: HighlightValue = {value: 0, wordID: ''};
     for (let lifetimeWordStat of this.lifeTimeWordStats) {
@@ -85,6 +98,19 @@ export class StatisticComponent implements OnInit {
       }
     }
     return mostAttempts;
+  }
+
+  getMostUnsolved() {
+    let mostUnsolved: HighlightValue = {value: 0, wordID: ''};
+    for (let lifetimeWordStat of this.lifeTimeWordStats) {
+      if (lifetimeWordStat.timesGuessedWrong > mostUnsolved.value) {
+        mostUnsolved = {
+          value: lifetimeWordStat.timesGuessedWrong,
+          wordID: lifetimeWordStat.wordID
+        }
+      }
+    }
+    return mostUnsolved;
   }
 
   getTotalAttendences(): HighlightValue {

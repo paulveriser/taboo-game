@@ -16,5 +16,5 @@ export class StatisticCardComponent {
   @Input()
   value: HighlightValue;
   @Input()
-  unit: 'sec' | 'attempts' | 'guesses' | 'attendences';
+  unit: 'sec' | 'attempts' | 'guesses' | 'attendences' | 'times';
 }
