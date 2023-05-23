@@ -23,6 +23,7 @@ import { StatisticCardComponent } from './components/statistic/statistic-card/st
 import {MatCardModule} from "@angular/material/card";
 import { GetWordFromIdPipe } from './pipes/get-word-from-id.pipe';
 import { GetGeneratorFromIdPipe } from './pipes/get-generator-from-id.pipe';
+import { StatisticTableComponent } from './components/statistic/statistic-table/statistic-table.component';
 
 const appRoute: Routes = [
   {path: '', redirectTo: 'welcome', pathMatch: 'full'},
@@ -42,7 +43,8 @@ const appRoute: Routes = [
     WelcomeComponent,
     StatisticCardComponent,
     GetWordFromIdPipe,
-    GetGeneratorFromIdPipe
+    GetGeneratorFromIdPipe,
+    StatisticTableComponent
   ],
   imports: [
     BrowserModule,
