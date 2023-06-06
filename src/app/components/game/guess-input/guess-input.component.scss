@@ -13,7 +13,11 @@
   gap: 25px;
   background-color: #C3C3A9;
   border-radius: 25px;
-  box-shadow: black -2px 2px 10px;
+  box-shadow: rgb(174, 174, 174) -2px 2px 10px;
+}
+
+.customFont {
+  font-family: "Urbanist-Bold";
 }
 
 .wrong-guess {
