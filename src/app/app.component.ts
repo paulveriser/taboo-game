@@ -1,12 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {
-  CHATGPT_WORD_DESCRIPTIONS,
-  HUMAN_WORD_DESCRIPTIONS,
-  TabooWordDescription
-} from "./constants/taboo-words.constant";
-import {GameSetup, GuessTracking} from "./app.model";
-import {ngxCsv} from "ngx-csv";
-import {BackendService} from "./services/backend/backend.service";
+import {Component} from '@angular/core';
 
 
 @Component({

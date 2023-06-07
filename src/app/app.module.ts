@@ -24,6 +24,7 @@ import {MatCardModule} from "@angular/material/card";
 import { GetWordFromIdPipe } from './pipes/get-word-from-id.pipe';
 import { GetGeneratorFromIdPipe } from './pipes/get-generator-from-id.pipe';
 import { StatisticTableComponent } from './components/statistic/statistic-table/statistic-table.component';
+import { DescriptionRatingComponent } from './components/game/description-rating/description-rating.component';
 
 const appRoute: Routes = [
   {path: '', redirectTo: 'welcome', pathMatch: 'full'},
@@ -44,7 +45,8 @@ const appRoute: Routes = [
     StatisticCardComponent,
     GetWordFromIdPipe,
     GetGeneratorFromIdPipe,
-    StatisticTableComponent
+    StatisticTableComponent,
+    DescriptionRatingComponent
   ],
   imports: [
     BrowserModule,

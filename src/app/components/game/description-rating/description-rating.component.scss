@@ -1,0 +1,28 @@
+.entry {
+  display: flex;
+  flex-direction: column;
+}
+
+.rating {
+  display: grid;
+  grid-template-columns: 120px auto;
+}
+
+.star-button {
+  width: 75px;
+  height: 75px;
+
+  .star {
+    color: white;
+    transform: scale(2);
+  }
+
+  .selected {
+    color: gold;
+  }
+}
+
+.submit-button {
+  width: 150px;
+  align-self: flex-end;
+}
