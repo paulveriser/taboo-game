@@ -1,7 +1,8 @@
 <div
   class="entry"
-  [class.wrong-guess]="this.gameStatus === 'running' && lastWordRight === false"
-  [class.right-guess]="this.gameStatus === 'running' && lastWordRight">
+  [class.wrong-guess]="(this.gameStatus === 'running' || this.gameStatus === 'paused') && lastWordRight === false"
+  [class.right-guess]="this.gameStatus === 'paused' && lastWordRight"
+>
 
   <h1>{{ getTitle() }}</h1>
 

@@ -55,6 +55,7 @@ export class GameComponent implements OnInit {
   onSubmitRating(ratings: DescriptionRatings) {
     this.trackDescriptionRatings(this.gameSetup.wordsToGuess[this.gameSetup.wordCount].wordID, ratings.creativity, ratings.bias);
     this.getNextGameStatus();
+    this.lastWordRight = undefined;
   }
 
   private getNextGameStatus() {
@@ -86,7 +87,6 @@ export class GameComponent implements OnInit {
   }
 
   private trackDescriptionRatings(wordID: string, creativityRating: number, biasRating: number) {
-    console.log(creativityRating);
     this.gameSetup.playerStat.guessTrackings.map(guessTracking => {
       if(guessTracking.wordID === wordID) {
         return {
@@ -127,7 +127,7 @@ export class GameComponent implements OnInit {
     });
     this.gameSetup = {
       gameStatus: 'ended',
-      timePerWord: 6,
+      timePerWord: 20,
       numberOfWords: 4,
       wordsToGuess: words,
       wordCount: 0,
