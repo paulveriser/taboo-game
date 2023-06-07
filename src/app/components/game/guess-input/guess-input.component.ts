@@ -23,13 +23,13 @@ export class GuessInputComponent {
   getTitle() {
     if (this.gameStatus === 'running' && this.lastWordRight === undefined) {
       return 'What is your guess?';
-    } else if (this.gameStatus === 'running' && this.lastWordRight) {
-      return 'Correct. Great Job! Next Guess:';
+    } else if (this.gameStatus === 'paused' && this.lastWordRight) {
+      return 'Correct. Great Job! Please give a rating for the description prompt on the categories shown above to succeed';
     } else if (this.gameStatus === 'running' && !this.lastWordRight) {
       return 'That\'s incorrect. What is your new guess?';
-    }  else if (this.gameStatus === 'paused') {
-      return 'Please give a rating to succeed';
-    } else {
+    }  else if (this.gameStatus === 'paused' && !this.lastWordRight) {
+      return 'Time\'s up. Please rate the description prompt on the categories shown above.';
+    }  else {
       return 'Start the game to guess'
     }
   }
