@@ -3,9 +3,8 @@
     <div class="timer">
       <app-game-display
         displayType="timer"
-        [gameStarted]="gameSetup.gameStarted"
+        [gameStatus]="gameSetup.gameStatus"
         [timePerWord]="gameSetup.timePerWord"
-        [points]="gameSetup.playerStat.gamePoints"
         (timeOver)="onTimeOver()"
       ></app-game-display>
     </div>
@@ -19,12 +18,17 @@
 
   <div class="word-description">
     <app-word-description
-      *ngIf="gameSetup.gameStarted"
+      *ngIf="gameSetup.gameStatus === 'running'"
       [wordDescriptionPrompt]="gameSetup.wordsToGuess[gameSetup.wordCount].wordDescription"
     >
     </app-word-description>
+    <app-description-rating
+      *ngIf="gameSetup.gameStatus === 'paused'"
+      (ratingSubmitted)="onSubmitRating($event)"
+    >
+    </app-description-rating>
     <button
-      *ngIf="!gameSetup.gameStarted"
+      *ngIf="gameSetup.gameStatus === 'ended'"
       (click)="onStartGame()"
       class="start-game-button"
       mat-raised-button
@@ -36,7 +40,7 @@
   <div class="guess-input">
     <app-guess-input
       (guessSubmition)="onGuessSubmitted($event)"
-      [gameStarted]="gameSetup.gameStarted"
+      [gameStatus]="gameSetup.gameStatus"
       [lastWordRight]="lastWordRight"
     >
     </app-guess-input>

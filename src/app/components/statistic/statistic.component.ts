@@ -17,6 +17,10 @@ export interface LifetimeWordStatistics  {
   averageTimeToSuccess: number;
   minimumTimeToSuccess: number;
   maximumTimeToSuccess: number;
+  totalCreativityRating: number;
+  totalBiasRating: number;
+  averageCreativityRating: number;
+  averageBiasRating: number;
 }
 
 @Component({
@@ -37,12 +41,9 @@ export class StatisticComponent implements OnInit {
     'wordID',
     'timesGuessedRight',
     'timesGuessedWrong',
-    'timesGuessedTotal',
-    'totalAttempts',
     'averageAttempts',
     'minimumAttempts',
     'maximumAttempts',
-    'totalTimeToSuccess',
     'averageTimeToSuccess',
     'minimumTimeToSuccess',
     'maximumTimeToSuccess'
@@ -113,6 +114,32 @@ export class StatisticComponent implements OnInit {
     return mostUnsolved;
   }
 
+  getBestCreativityRating() {
+    let bestCreativityRating: HighlightValue = {value: 0, wordID: ''};
+    for (let lifetimeWordStat of this.lifeTimeWordStats) {
+      if (lifetimeWordStat.averageCreativityRating > bestCreativityRating.value) {
+        bestCreativityRating = {
+          value: lifetimeWordStat.averageCreativityRating,
+          wordID: lifetimeWordStat.wordID
+        }
+      }
+    }
+    return bestCreativityRating;
+  }
+
+  getBestBiasRating() {
+    let bestBiasRating: HighlightValue = {value: 0, wordID: ''};
+    for (let lifetimeWordStat of this.lifeTimeWordStats) {
+      if (lifetimeWordStat.averageBiasRating > bestBiasRating.value) {
+        bestBiasRating = {
+          value: lifetimeWordStat.averageBiasRating,
+          wordID: lifetimeWordStat.wordID
+        }
+      }
+    }
+    return bestBiasRating;
+  }
+
   getTotalAttendences(): HighlightValue {
     return {value: this.totalAttendences, wordID: ''};
   }
@@ -133,7 +160,11 @@ export class StatisticComponent implements OnInit {
         totalTimeToSuccess: 0,
         averageTimeToSuccess: 0,
         minimumTimeToSuccess: 999,
-        maximumTimeToSuccess: 0
+        maximumTimeToSuccess: 0,
+        totalCreativityRating: 0,
+        totalBiasRating: 0,
+        averageCreativityRating: 0,
+        averageBiasRating: 0
       })
     }
 
@@ -150,6 +181,10 @@ export class StatisticComponent implements OnInit {
       lifetimeWordStat.averageTimeToSuccess = Math.round(lifetimeWordStat.averageTimeToSuccess * 1000) / 1000;
       lifetimeWordStat.averageAttempts = lifetimeWordStat.totalAttempts/playerStats.length;
       lifetimeWordStat.averageAttempts = Math.round(lifetimeWordStat.averageAttempts * 1000) / 1000;
+      lifetimeWordStat.averageCreativityRating = lifetimeWordStat.totalCreativityRating/playerStats.length;
+      lifetimeWordStat.averageCreativityRating = Math.round(lifetimeWordStat.averageCreativityRating * 1000) / 1000;
+      lifetimeWordStat.averageBiasRating = lifetimeWordStat.totalBiasRating/playerStats.length;
+      lifetimeWordStat.averageBiasRating = Math.round(lifetimeWordStat.averageBiasRating * 1000) / 1000;
     }
   }
 
@@ -166,21 +201,35 @@ export class StatisticComponent implements OnInit {
           }
 
           // Attempt Statistics
-          lifetimeWordStat.totalAttempts += guessTracking.attempts;
-          if (guessTracking.attempts > lifetimeWordStat.maximumAttempts) {
-            lifetimeWordStat.maximumAttempts = guessTracking.attempts;
-          }
-          if (guessTracking.attempts < lifetimeWordStat.minimumAttempts) {
-            lifetimeWordStat.minimumAttempts = guessTracking.attempts;
+          if(guessTracking.attempts) {
+            lifetimeWordStat.totalAttempts += guessTracking.attempts;
+            if (guessTracking.attempts > lifetimeWordStat.maximumAttempts) {
+              lifetimeWordStat.maximumAttempts = guessTracking.attempts;
+            }
+            if (guessTracking.attempts < lifetimeWordStat.minimumAttempts) {
+              lifetimeWordStat.minimumAttempts = guessTracking.attempts;
+            }
           }
 
           // Time to success Statistics
-          lifetimeWordStat.totalTimeToSuccess += guessTracking.timeToSuccess;
-          if (guessTracking.timeToSuccess > lifetimeWordStat.maximumTimeToSuccess) {
-            lifetimeWordStat.maximumTimeToSuccess = guessTracking.timeToSuccess;
+          if(guessTracking.timeToSuccess) {
+            lifetimeWordStat.totalTimeToSuccess += guessTracking.timeToSuccess;
+            if (guessTracking.timeToSuccess > lifetimeWordStat.maximumTimeToSuccess) {
+              lifetimeWordStat.maximumTimeToSuccess = guessTracking.timeToSuccess;
+            }
+            if (guessTracking.timeToSuccess < lifetimeWordStat.minimumTimeToSuccess) {
+              lifetimeWordStat.minimumTimeToSuccess = guessTracking.timeToSuccess;
+            }
           }
-          if (guessTracking.timeToSuccess < lifetimeWordStat.minimumTimeToSuccess) {
-            lifetimeWordStat.minimumTimeToSuccess = guessTracking.timeToSuccess;
+
+          // Creativity Rating Statistics
+          if(guessTracking.ratings.creativity) {
+            lifetimeWordStat.totalCreativityRating += guessTracking.ratings.creativity;
+          }
+
+          // Bias Rating Statistics
+          if(guessTracking.ratings.bias) {
+            lifetimeWordStat.totalBiasRating += guessTracking.ratings.bias;
           }
         }
       }

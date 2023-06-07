@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GameSetup, GuessTracking} from "../../app.model";
+import {DescriptionRatings, GameSetup, GuessTracking} from "../../app.model";
 import {BackendService} from "../../services/backend/backend.service";
 import {
   CHATGPT_WORD_DESCRIPTIONS,
@@ -28,44 +28,86 @@ export class GameComponent implements OnInit {
 
   onStartGame() {
     this.resetGame();
-    this.gameSetup.gameStarted = true;
+    this.gameSetup.gameStatus = 'running';
     this.setStartGuessTime()
   }
 
   onTimeOver() {
     this.trackPlayersStats(this.gameSetup.wordsToGuess[this.gameSetup.wordCount].wordID, false, false);
-    this.setStartGuessTime();
-
-    // End game when all words shown
-    if (this.gameSetup.wordCount === this.gameSetup.wordsToGuess.length-1) {
-      this.gameSetup.gameStarted = false;
-    } else {
-      this.gameSetup.wordCount++;
-    }
+    this.gameSetup.gameStatus = 'paused';
   }
 
   onGuessSubmitted(guess: string) {
     // Word guessed
-    if (this.gameSetup.wordsToGuess[this.gameSetup.wordCount].word === guess.toLowerCase()) {
+    if (this.gameSetup.wordsToGuess[this.gameSetup.wordCount].word.toLowerCase() === guess.toLowerCase()) {
       this.trackPlayersStats(this.gameSetup.wordsToGuess[this.gameSetup.wordCount].wordID, true, true);
       this.gameSetup.playerStat.gamePoints++;
       this.lastWordRight = true;
-
-      // End game when all words guessed
-      if (this.gameSetup.wordCount === this.gameSetup.wordsToGuess.length-1) {
-        this.gameSetup.gameStarted = false;
-        this.backendService.uploadPlayerStats(this.gameSetup.playerStat);
-        // this.writeToCSV();
-      } else {
-        this.gameSetup.wordCount++;
-        this.setStartGuessTime();
-      }
-
+      // Get next game Status
+      this.getNextGameStatus()
       // Wrong guess
     } else {
       this.trackPlayersStats(this.gameSetup.wordsToGuess[this.gameSetup.wordCount].wordID, false, true);
       this.lastWordRight = false;
     }
+  }
+
+  onSubmitRating(ratings: DescriptionRatings) {
+    this.trackDescriptionRatings(this.gameSetup.wordsToGuess[this.gameSetup.wordCount].wordID, ratings.creativity, ratings.bias);
+    this.getNextGameStatus();
+  }
+
+  private getNextGameStatus() {
+    // End game when all words shown & rating was shown
+    if (this.gameSetup.wordCount === this.gameSetup.wordsToGuess.length-1 && this.gameSetup.gameStatus === 'paused') {
+      this.gameSetup.gameStatus = 'ended';
+      this.backendService.uploadPlayerStats(this.gameSetup.playerStat);
+    } else if (this.gameSetup.gameStatus === 'paused') {
+      this.gameSetup.gameStatus = 'running';
+      this.gameSetup.wordCount++;
+      this.setStartGuessTime();
+    } else {
+      this.gameSetup.gameStatus = 'paused';
+    }
+  }
+
+  private trackPlayersStats(wordID: string, guessed: boolean, newAttempt: boolean) {
+    this.gameSetup.playerStat.guessTrackings.map(guessTracking => {
+      if(guessTracking.wordID === wordID) {
+        return {
+          guessed: guessTracking.guessed = guessed,
+          attempts: newAttempt? guessTracking.attempts++: guessTracking.attempts,
+          timeToSuccess: guessed? guessTracking.timeToSuccess = this.getCurrentGuessTime(): guessTracking.timeToSuccess = undefined
+        }
+      } else {
+        return guessTracking;
+      }
+    });
+  }
+
+  private trackDescriptionRatings(wordID: string, creativityRating: number, biasRating: number) {
+    console.log(creativityRating);
+    this.gameSetup.playerStat.guessTrackings.map(guessTracking => {
+      if(guessTracking.wordID === wordID) {
+        return {
+          ratings: guessTracking.ratings = {
+            creativity: creativityRating,
+            bias: biasRating
+          }
+        }
+      } else {
+        return guessTracking;
+      }
+    });
+  }
+
+  private setStartGuessTime() {
+    this.startGuessTime = new Date().getTime();
+  }
+
+  private getCurrentGuessTime() {
+    const endGuessTime = new Date().getTime();
+    return (endGuessTime - this.startGuessTime)/1000;
   }
 
   private resetGame() {
@@ -76,11 +118,15 @@ export class GameComponent implements OnInit {
         wordID: word.wordID,
         guessed: false,
         attempts: 0,
-        timeToSuccess: 0
+        timeToSuccess: 0,
+        ratings: {
+          creativity: 0,
+          bias: 0
+        }
       })
     });
     this.gameSetup = {
-      gameStarted: false,
+      gameStatus: 'ended',
       timePerWord: 6,
       numberOfWords: 4,
       wordsToGuess: words,
@@ -103,34 +149,8 @@ export class GameComponent implements OnInit {
     // prevent same words
     for (let humanDescription of humanDescriptions) {
       shuffledChatGPT = shuffledChatGPT.filter(chatGPTDescription => chatGPTDescription.word !== humanDescription.word);
-      console.log(humanDescription);
     }
-
-    console.log(humanDescriptions.concat(shuffledChatGPT.slice(0, numberOfWords/2)).sort(() => 0.5 - Math.random()));
     // Get the other half of desired number of words from filtered chatGPT list
     return humanDescriptions.concat(shuffledChatGPT.slice(0, numberOfWords/2)).sort(() => 0.5 - Math.random());
-  }
-
-  private trackPlayersStats(wordID: string, guessed: boolean, newAttempt: boolean) {
-    this.gameSetup.playerStat.guessTrackings.map(guessTracking => {
-      if(guessTracking.wordID === wordID) {
-        return {
-          guessed: guessTracking.guessed = guessed,
-          attempts: newAttempt? guessTracking.attempts++: guessTracking.attempts,
-          timeToSuccess: guessed? guessTracking.timeToSuccess = this.getCurrentGuessTime(): guessTracking.timeToSuccess = undefined,
-        }
-      } else {
-        return guessTracking;
-      }
-    });
-  }
-
-  private setStartGuessTime() {
-    this.startGuessTime = new Date().getTime();
-  }
-
-  private getCurrentGuessTime() {
-    const endGuessTime = new Date().getTime();
-    return (endGuessTime - this.startGuessTime)/1000;
   }
 }
