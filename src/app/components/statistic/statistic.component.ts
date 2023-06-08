@@ -221,16 +221,6 @@ export class StatisticComponent implements OnInit {
               lifetimeWordStat.minimumTimeToSuccess = guessTracking.timeToSuccess;
             }
           }
-
-          // Creativity Rating Statistics
-          if(guessTracking.ratings.creativity) {
-            lifetimeWordStat.totalCreativityRating += guessTracking.ratings.creativity;
-          }
-
-          // Bias Rating Statistics
-          if(guessTracking.ratings.bias) {
-            lifetimeWordStat.totalBiasRating += guessTracking.ratings.bias;
-          }
         }
       }
     }

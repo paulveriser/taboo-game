@@ -1,0 +1,39 @@
+<div class="entry">
+  <div class="title">
+    <h1>
+      Thanks for playing the game!
+    </h1>
+  </div>
+
+  <h3>Please provide the following information about yourself for our study:</h3>
+
+  <form class="details-form" #userInformationForm="ngForm">
+    <div class="age-gender-input">
+      <mat-form-field class="age-form-field">
+        <mat-label>Age</mat-label>
+        <mat-select name="age" [(ngModel)]="userInformation.age" required>
+          <mat-option *ngFor="let age of ages" [value]="age" >
+            {{age}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="gender-form-field">
+        <mat-label>Gender</mat-label>
+        <mat-select name="gender" [(ngModel)]="userInformation.gender" required>
+          <mat-option *ngFor="let gender of ['female', 'male', 'diverse', 'prefer not to say']" [value]="gender" >
+            {{gender}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="itKnowledge-form-field">
+      <span>Rate your IT-knowledge on a scale from 1 (none at all) to 10 (perfect knowledge): </span>
+      <mat-slider min="1" max="10" step="1" class="itKnowledge-slider" discrete>
+        <input matSliderThumb [(ngModel)]="userInformation.itKnowledge" name="itKnowledge" required>
+      </mat-slider>
+    </div>
+    <button class="submit-button" mat-raised-button (click)="onSubmit()">Save & end game</button>
+  </form>
+</div>
