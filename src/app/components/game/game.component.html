@@ -20,7 +20,7 @@
   <div class="word-description">
     <app-word-description
       *ngIf="gameSetup.gameStarted"
-      [wordDescriptionPrompt]="gameSetup.wordsToGuess[gameSetup.wordCount].wordDescription"
+      [wordDescriptionPrompt]="gameSetup.wordsToGuess[gameSetup.wordCount].wordDescriptions[0]"
     >
     </app-word-description>
     <button
