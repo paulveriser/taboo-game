@@ -15,7 +15,6 @@
       ></app-game-display>
     </div>
   </div>
-
   <div class="word-description" *ngIf="gameSetup.gameStatus !== 'ended' && gameSetup.gameStatus !== 'postgame'">
     <button
       *ngIf="gameSetup.gameStatus === 'pregame'"
@@ -27,7 +26,7 @@
     >Start Game</button>
     <app-word-description
       *ngIf="gameSetup.gameStatus === 'running'"
-      [wordDescriptionPrompt]="gameSetup.wordsToGuess[gameSetup.wordCount].wordDescription"
+      [wordDescriptionPrompts]="gameSetup.wordsToGuess[gameSetup.wordCount].wordDescriptions"
     >
     </app-word-description>
     <button
@@ -63,6 +62,6 @@
   </div>
 
   <div class="info">
-    <span>{{ infoText }}</span>
+    <span class="Urbanist-Regular">{{ infoText }}</span>
   </div>
 </div>
