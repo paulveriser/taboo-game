@@ -1,7 +1,7 @@
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {
-  background-color: #F8F8F8;
+  background-color: #D7EEFF;
   font-family: "Urbanist-Regular", Arial, Helvetica, sans-serif;
   color: #333333;
 }
@@ -9,6 +9,10 @@ body {
 .mat-mdc-form-field-flex,
 .mat-mdc-text-field-wrapper{
   align-items: center !important;
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+  color: #212121 !important;
 }
 
 html, body { height: 100%; }
@@ -20,11 +24,11 @@ body { margin: 0; font-family: "Urbanist-Regular", Roboto, "Helvetica Neue", san
 }
 
 .Urbanist-Regular {
-  font-family: "Urbanist";
+  font-family: "Urbanist", serif;
   font-weight: 400;
 }
 
 .Urbanist-Bold {
-  font-family: "Urbanist";
+  font-family: "Urbanist", serif;
   font-weight: 700;
 }

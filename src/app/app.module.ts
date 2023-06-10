@@ -33,8 +33,8 @@ import {MatSliderModule} from "@angular/material/slider";
 const appRoute: Routes = [
   {path: '', redirectTo: 'welcome', pathMatch: 'full'},
   {path: 'welcome', component: WelcomeComponent},
-  {path: 'game', component: GameComponent},
-  {path: 'statistics', component: StatisticComponent}
+  {path: 'taboo-game/game', component: GameComponent},
+  {path: 'taboo-game/statistics', component: StatisticComponent}
 ]
 
 @NgModule({
