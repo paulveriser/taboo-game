@@ -1,7 +1,10 @@
 import {TabooWordDescription} from "./constants/taboo-words.constant";
+import {UserInformation} from "./components/game/user-information-input/user-information-input.component";
+
+export type Gamestatus = 'pregame' | 'running' | 'paused' | 'ended' | 'postgame'
 
 export interface GameSetup {
-  gameStarted: boolean;
+  gameStatus: Gamestatus;
   timePerWord: number;
   numberOfWords: number;
   wordsToGuess: TabooWordDescription[];
@@ -11,6 +14,7 @@ export interface GameSetup {
 
 export interface PlayerStat {
   gamePoints: number;
+  userInformation: UserInformation;
   guessTrackings: GuessTracking[];
 }
 

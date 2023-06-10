@@ -1,0 +1,37 @@
+.title {
+  display: flex;
+  justify-content: center;
+}
+
+.details-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+
+  .age-gender-input {
+    display: flex;
+    gap: 10px
+  }
+
+  .age-form-field,
+  .gender-form-field{
+    width: 150px;
+  }
+
+  .submit-button {
+    width: 300px;
+    height: 56px;
+  }
+
+  .itKnowledge-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+
+    .itKnowledge-slider {
+      width: 300px;
+    }
+  }
+}

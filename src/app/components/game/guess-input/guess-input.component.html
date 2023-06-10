@@ -1,9 +1,14 @@
-<div class="entry"[class.wrong-guess]="gameStarted && lastWordRight === false" [class.right-guess]="gameStarted && lastWordRight">
+<div
+  class="entry"
+  [class.wrong-guess]="(this.gameStatus === 'running' || this.gameStatus === 'paused') && lastWordRight === false"
+  [class.right-guess]="this.gameStatus === 'paused' && lastWordRight"
+>
+
   <h1 class="customFont">{{ getTitle() }}</h1>
 
   <div class="guess-form">
     <mat-form-field class="guess-form-field Urbanist-Regular">
-      <input style= "text-align:center" [disabled]="!gameStarted" matInput type="text" placeholder="Enter the word here" [(ngModel)]="value" (keydown.enter)="onGuessSubmit()">
+      <input style= "text-align:center" [disabled]="this.gameStatus !== 'running'" matInput type="text" placeholder="Enter the word here" [(ngModel)]="value" (keydown.enter)="onGuessSubmit()">
       <button *ngIf="value" matSuffix mat-icon-button aria-label="Clear" (click)="onGuessSubmit()">
         <mat-icon>arrow_forward</mat-icon>
       </button>

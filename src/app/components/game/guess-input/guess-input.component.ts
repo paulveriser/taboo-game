@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {Gamestatus} from "../../../app.model";
 
 @Component({
   selector: 'app-guess-input',
@@ -9,7 +10,7 @@ export class GuessInputComponent {
   @Output()
   guessSubmition = new EventEmitter<string>;
   @Input()
-  gameStarted = false;
+  gameStatus: Gamestatus = 'pregame';
   @Input()
   lastWordRight: boolean;
 
@@ -20,13 +21,15 @@ export class GuessInputComponent {
   }
 
   getTitle() {
-    if (this.gameStarted && this.lastWordRight === undefined) {
+    if (this.gameStatus === 'running' && this.lastWordRight === undefined) {
       return 'What is your guess?';
-    } else if (this.gameStarted && this.lastWordRight) {
-      return 'Correct. Great Job! Next Guess:';
-    } else if (this.gameStarted && !this.lastWordRight) {
+    } else if (this.gameStatus === 'paused' && this.lastWordRight) {
+      return 'Correct. Great Job! To succeed, press the button above.';
+    } else if (this.gameStatus === 'running' && !this.lastWordRight) {
       return 'That\'s incorrect. What is your new guess?';
-    } else {
+    }  else if (this.gameStatus === 'paused' && !this.lastWordRight) {
+      return 'Time\'s up. To succeed, press the button above.';
+    }  else {
       return 'Start the game to guess'
     }
   }

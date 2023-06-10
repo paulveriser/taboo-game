@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {Gamestatus} from "../../../app.model";
 
 @Component({
   selector: 'app-game-display',
@@ -13,7 +14,7 @@ export class GameDisplayComponent implements OnInit, OnChanges {
   @Input()
   timePerWord: number;
   @Input()
-  gameStarted? = false;
+  gameStatus?: Gamestatus = 'pregame';
   @Output()
   timeOver = new EventEmitter<void>;
 
@@ -26,12 +27,14 @@ export class GameDisplayComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.displayType === 'timer' && this.gameStarted && changes['points']) {
+    if (this.displayType === 'timer' && this.gameStatus === 'running' && changes['points']) {
       clearInterval(this.interval);
       this.startTimer();
-    } else if (this.displayType === 'timer' && changes['gameStarted'].currentValue === true) {
+    } else if (this.displayType === 'timer' && changes['gameStatus'].currentValue === 'running') {
       this.startTimer();
-    } else if (this.displayType === 'timer' && changes['gameStarted'].currentValue === false) {
+    } else if (this.displayType === 'timer' && changes['gameStatus'].currentValue == 'paused') {
+      this.pauseTimer();
+    } else if (this.displayType === 'timer' && (changes['gameStatus'].currentValue == 'ended' || changes['gameStatus'].currentValue == 'pregame')) {
       this.endTimer();
     }
   }
@@ -58,9 +61,12 @@ export class GameDisplayComponent implements OnInit, OnChanges {
     },1000)
   }
 
-  endTimer() {
+  private pauseTimer() {
+    clearInterval(this.interval);
+  }
+
+  private endTimer() {
     clearInterval(this.interval);
     this.timeLeft = this.timePerWord;
-    this.timeOver.emit();
   }
 }
