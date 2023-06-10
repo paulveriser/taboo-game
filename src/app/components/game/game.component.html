@@ -26,7 +26,7 @@
     >Start Game</button>
     <app-word-description
       *ngIf="gameSetup.gameStatus === 'running'"
-      [wordDescriptionPrompt]="gameSetup.wordsToGuess[gameSetup.wordCount].wordDescription"
+      [wordDescriptionPrompts]="gameSetup.wordsToGuess[gameSetup.wordCount].wordDescriptions"
     >
     </app-word-description>
     <button
