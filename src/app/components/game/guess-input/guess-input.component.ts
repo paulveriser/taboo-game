@@ -10,7 +10,7 @@ export class GuessInputComponent {
   @Output()
   guessSubmition = new EventEmitter<string>;
   @Input()
-  gameStatus: Gamestatus = 'ended';
+  gameStatus: Gamestatus = 'pregame';
   @Input()
   lastWordRight: boolean;
 
@@ -24,11 +24,11 @@ export class GuessInputComponent {
     if (this.gameStatus === 'running' && this.lastWordRight === undefined) {
       return 'What is your guess?';
     } else if (this.gameStatus === 'paused' && this.lastWordRight) {
-      return 'Correct. Great Job! Please give a rating for the description prompt on the categories shown above to succeed';
+      return 'Correct. Great Job! To succeed, press the button above.';
     } else if (this.gameStatus === 'running' && !this.lastWordRight) {
       return 'That\'s incorrect. What is your new guess?';
     }  else if (this.gameStatus === 'paused' && !this.lastWordRight) {
-      return 'Time\'s up. Please rate the description prompt on the categories shown above.';
+      return 'Time\'s up. To succeed, press the button above.';
     }  else {
       return 'Start the game to guess'
     }

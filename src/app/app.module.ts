@@ -9,7 +9,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatFormFieldModule} from "@angular/material/form-field";
 import {MatIconModule} from "@angular/material/icon";
 import {MatInputModule} from "@angular/material/input";
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
@@ -24,13 +24,17 @@ import {MatCardModule} from "@angular/material/card";
 import { GetWordFromIdPipe } from './pipes/get-word-from-id.pipe';
 import { GetGeneratorFromIdPipe } from './pipes/get-generator-from-id.pipe';
 import { StatisticTableComponent } from './components/statistic/statistic-table/statistic-table.component';
-import { DescriptionRatingComponent } from './components/game/description-rating/description-rating.component';
+import { UserInformationInputComponent } from './components/game/user-information-input/user-information-input.component';
+import {MatOptionModule} from "@angular/material/core";
+import {MatSelectModule} from "@angular/material/select";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatSliderModule} from "@angular/material/slider";
 
 const appRoute: Routes = [
-  {path: '', redirectTo: 'welcome', pathMatch: 'full'},
-  {path: 'welcome', component: WelcomeComponent},
-  {path: 'game', component: GameComponent},
-  {path: 'statistics', component: StatisticComponent}
+  {path: '', redirectTo: 'taboo-game/welcome', pathMatch: 'full'},
+  {path: 'taboo-game/welcome', component: WelcomeComponent},
+  {path: 'taboo-game/game', component: GameComponent},
+  {path: 'taboo-game/statistics', component: StatisticComponent}
 ]
 
 @NgModule({
@@ -46,7 +50,7 @@ const appRoute: Routes = [
     GetWordFromIdPipe,
     GetGeneratorFromIdPipe,
     StatisticTableComponent,
-    DescriptionRatingComponent
+    UserInformationInputComponent
   ],
   imports: [
     BrowserModule,
@@ -61,7 +65,12 @@ const appRoute: Routes = [
     MatToolbarModule,
     MatMenuModule,
     MatTableModule,
-    MatCardModule
+    MatCardModule,
+    MatOptionModule,
+    MatSelectModule,
+    ReactiveFormsModule,
+    MatRadioModule,
+    MatSliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]

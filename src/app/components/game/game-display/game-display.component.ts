@@ -14,7 +14,7 @@ export class GameDisplayComponent implements OnInit, OnChanges {
   @Input()
   timePerWord: number;
   @Input()
-  gameStatus?: Gamestatus = 'paused';
+  gameStatus?: Gamestatus = 'pregame';
   @Output()
   timeOver = new EventEmitter<void>;
 
@@ -34,7 +34,7 @@ export class GameDisplayComponent implements OnInit, OnChanges {
       this.startTimer();
     } else if (this.displayType === 'timer' && changes['gameStatus'].currentValue == 'paused') {
       this.pauseTimer();
-    } else if (this.displayType === 'timer' && changes['gameStatus'].currentValue == 'ended') {
+    } else if (this.displayType === 'timer' && (changes['gameStatus'].currentValue == 'ended' || changes['gameStatus'].currentValue == 'pregame')) {
       this.endTimer();
     }
   }

@@ -1,12 +1,34 @@
-@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
 
 body {
   background-color: #D7EEFF;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Urbanist-Regular", Arial, Helvetica, sans-serif;
   color: #333333;
 }
 
 .mat-mdc-form-field-flex,
 .mat-mdc-text-field-wrapper{
   align-items: center !important;
+}
+
+.mat-mdc-raised-button:not(:disabled) {
+  color: #212121 !important;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: "Urbanist-Regular", Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face {
+  font-family: "Urbanist";
+  src: url(./assets/fonts/Urbanist-Regular.ttf) format("opentype");
+}
+
+.Urbanist-Regular {
+  font-family: "Urbanist", serif;
+  font-weight: 400;
+}
+
+.Urbanist-Bold {
+  font-family: "Urbanist", serif;
+  font-weight: 700;
 }

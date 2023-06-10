@@ -11,6 +11,7 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^16.0.0",
+    "@angular/cdk": "^16.0.0",
     "@angular/common": "^16.0.0",
     "@angular/compiler": "^16.0.0",
     "@angular/core": "^16.0.0",
@@ -20,6 +21,8 @@
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
     "material-design-icons": "^3.0.1",
+    "material-design-icons-iconfont": "^6.7.0",
+    "ngx-csv": "^0.3.2",
     "rxjs": "~7.8.0",
     "zone.js": "~0.13.0"
   },
@@ -29,6 +32,7 @@
     "@angular/compiler-cli": "^16.0.0",
     "@types/jasmine": "~4.3.0",
     "@types/node": "^20.1.4",
+    "angular-cli-ghpages": "^0.6.2",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",

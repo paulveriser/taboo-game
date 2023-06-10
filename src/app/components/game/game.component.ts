@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {DescriptionRatings, GameSetup, GuessTracking} from "../../app.model";
+import { GameSetup, GuessTracking} from "../../app.model";
 import {BackendService} from "../../services/backend/backend.service";
 import {
   CHATGPT_WORD_DESCRIPTIONS,
   HUMAN_WORD_DESCRIPTIONS,
   TabooWordDescription
 } from "../../constants/taboo-words.constant";
+import {UserInformation} from "./user-information-input/user-information-input.component";
 
 @Component({
   selector: 'app-game',
@@ -52,17 +53,22 @@ export class GameComponent implements OnInit {
     }
   }
 
-  onSubmitRating(ratings: DescriptionRatings) {
-    this.trackDescriptionRatings(this.gameSetup.wordsToGuess[this.gameSetup.wordCount].wordID, ratings.creativity, ratings.bias);
+  onNextWord() {
     this.getNextGameStatus();
     this.lastWordRight = undefined;
+    this.gameSetup.gameStatus = 'running';
+  }
+
+  onUserInformationSubmitted(userInformation: UserInformation) {
+    this.gameSetup.playerStat.userInformation = userInformation;
+    this.backendService.uploadPlayerStats(this.gameSetup.playerStat);
+    this.gameSetup.gameStatus = 'postgame';
   }
 
   private getNextGameStatus() {
     // End game when all words shown & rating was shown
-    if (this.gameSetup.wordCount === this.gameSetup.wordsToGuess.length-1 && this.gameSetup.gameStatus === 'paused') {
+    if (this.gameSetup.wordCount === this.gameSetup.wordsToGuess.length-1) {
       this.gameSetup.gameStatus = 'ended';
-      this.backendService.uploadPlayerStats(this.gameSetup.playerStat);
     } else if (this.gameSetup.gameStatus === 'paused') {
       this.gameSetup.gameStatus = 'running';
       this.gameSetup.wordCount++;
@@ -79,21 +85,6 @@ export class GameComponent implements OnInit {
           guessed: guessTracking.guessed = guessed,
           attempts: newAttempt? guessTracking.attempts++: guessTracking.attempts,
           timeToSuccess: guessed? guessTracking.timeToSuccess = this.getCurrentGuessTime(): guessTracking.timeToSuccess = undefined
-        }
-      } else {
-        return guessTracking;
-      }
-    });
-  }
-
-  private trackDescriptionRatings(wordID: string, creativityRating: number, biasRating: number) {
-    this.gameSetup.playerStat.guessTrackings.map(guessTracking => {
-      if(guessTracking.wordID === wordID) {
-        return {
-          ratings: guessTracking.ratings = {
-            creativity: creativityRating,
-            bias: biasRating
-          }
         }
       } else {
         return guessTracking;
@@ -118,21 +109,22 @@ export class GameComponent implements OnInit {
         wordID: word.wordID,
         guessed: false,
         attempts: 0,
-        timeToSuccess: 0,
-        ratings: {
-          creativity: 0,
-          bias: 0
-        }
+        timeToSuccess: 0
       })
     });
     this.gameSetup = {
-      gameStatus: 'ended',
+      gameStatus: 'pregame',
       timePerWord: 20,
       numberOfWords: 4,
       wordsToGuess: words,
       wordCount: 0,
       playerStat: {
         gamePoints: 0,
+        userInformation: {
+          age: 0,
+          gender: 'prefer not to say',
+          itKnowledge: 0
+        },
         guessTrackings: guessTrackings
       }
     }

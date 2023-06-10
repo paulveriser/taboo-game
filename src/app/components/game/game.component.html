@@ -1,5 +1,5 @@
 <div class="entry">
-  <div class="game-info">
+  <div class="game-info" *ngIf="gameSetup.gameStatus !== 'ended' && gameSetup.gameStatus !== 'postgame'">
     <div class="timer">
       <app-game-display
         displayType="timer"
@@ -15,29 +15,31 @@
       ></app-game-display>
     </div>
   </div>
-
-  <div class="word-description">
-    <app-word-description
-      *ngIf="gameSetup.gameStatus === 'running'"
-      [wordDescriptionPrompt]="gameSetup.wordsToGuess[gameSetup.wordCount].wordDescription"
-    >
-    </app-word-description>
-    <app-description-rating
-      *ngIf="gameSetup.gameStatus === 'paused'"
-      (ratingSubmitted)="onSubmitRating($event)"
-    >
-    </app-description-rating>
+  <div class="word-description" *ngIf="gameSetup.gameStatus !== 'ended' && gameSetup.gameStatus !== 'postgame'">
     <button
-      *ngIf="gameSetup.gameStatus === 'ended'"
+      *ngIf="gameSetup.gameStatus === 'pregame'"
       (click)="onStartGame()"
       class="start-game-button"
       mat-raised-button
       color="accent"
 
     >Start Game</button>
+    <app-word-description
+      *ngIf="gameSetup.gameStatus === 'running'"
+      [wordDescriptionPrompts]="gameSetup.wordsToGuess[gameSetup.wordCount].wordDescriptions"
+    >
+    </app-word-description>
+    <button
+      *ngIf="gameSetup.gameStatus === 'paused'"
+      (click)="onNextWord()"
+      mat-raised-button
+      class="next-word-button"
+    >
+      Next ({{gameSetup.wordsToGuess.length - gameSetup.wordCount - 1}} words remaining)
+    </button>
   </div>
 
-  <div class="guess-input">
+  <div class="guess-input" *ngIf="gameSetup.gameStatus !== 'ended' && gameSetup.gameStatus !== 'postgame'">
     <app-guess-input
       (guessSubmition)="onGuessSubmitted($event)"
       [gameStatus]="gameSetup.gameStatus"
@@ -46,7 +48,20 @@
     </app-guess-input>
   </div>
 
+  <div *ngIf="gameSetup.gameStatus === 'ended'"></div>
+  <app-user-information-input
+    *ngIf="gameSetup.gameStatus === 'ended'"
+    (userInformationSubmit)="onUserInformationSubmitted($event)"
+  >
+  </app-user-information-input>
+
+  <div
+    *ngIf="gameSetup.gameStatus === 'postgame'"
+  >
+    Hier kommt das Debriefing hin
+  </div>
+
   <div class="info">
-    <span>{{ infoText }}</span>
+    <span class="Urbanist-Regular">{{ infoText }}</span>
   </div>
 </div>
