@@ -41,7 +41,8 @@
   font-size: 22px;
   background-color: #BBD1F5 !important;
   border-radius: 15px;
-  box-shadow: grey -1px 1px 5px;
+  box-shadow: #afafaf -1px 1px 5px;
+  font-family: "Urbanist-Bold";
 }
 
 .guess-input {
@@ -50,5 +51,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
