@@ -17,10 +17,6 @@ export interface LifetimeWordStatistics  {
   averageTimeToSuccess: number;
   minimumTimeToSuccess: number;
   maximumTimeToSuccess: number;
-  totalCreativityRating: number;
-  totalBiasRating: number;
-  averageCreativityRating: number;
-  averageBiasRating: number;
 }
 
 @Component({
@@ -114,32 +110,6 @@ export class StatisticComponent implements OnInit {
     return mostUnsolved;
   }
 
-  getBestCreativityRating() {
-    let bestCreativityRating: HighlightValue = {value: 0, wordID: ''};
-    for (let lifetimeWordStat of this.lifeTimeWordStats) {
-      if (lifetimeWordStat.averageCreativityRating > bestCreativityRating.value) {
-        bestCreativityRating = {
-          value: lifetimeWordStat.averageCreativityRating,
-          wordID: lifetimeWordStat.wordID
-        }
-      }
-    }
-    return bestCreativityRating;
-  }
-
-  getBestBiasRating() {
-    let bestBiasRating: HighlightValue = {value: 0, wordID: ''};
-    for (let lifetimeWordStat of this.lifeTimeWordStats) {
-      if (lifetimeWordStat.averageBiasRating > bestBiasRating.value) {
-        bestBiasRating = {
-          value: lifetimeWordStat.averageBiasRating,
-          wordID: lifetimeWordStat.wordID
-        }
-      }
-    }
-    return bestBiasRating;
-  }
-
   getTotalAttendences(): HighlightValue {
     return {value: this.totalAttendences, wordID: ''};
   }
@@ -161,10 +131,6 @@ export class StatisticComponent implements OnInit {
         averageTimeToSuccess: 0,
         minimumTimeToSuccess: 999,
         maximumTimeToSuccess: 0,
-        totalCreativityRating: 0,
-        totalBiasRating: 0,
-        averageCreativityRating: 0,
-        averageBiasRating: 0
       })
     }
 
@@ -181,10 +147,6 @@ export class StatisticComponent implements OnInit {
       lifetimeWordStat.averageTimeToSuccess = Math.round(lifetimeWordStat.averageTimeToSuccess * 1000) / 1000;
       lifetimeWordStat.averageAttempts = lifetimeWordStat.totalAttempts/playerStats.length;
       lifetimeWordStat.averageAttempts = Math.round(lifetimeWordStat.averageAttempts * 1000) / 1000;
-      lifetimeWordStat.averageCreativityRating = lifetimeWordStat.totalCreativityRating/playerStats.length;
-      lifetimeWordStat.averageCreativityRating = Math.round(lifetimeWordStat.averageCreativityRating * 1000) / 1000;
-      lifetimeWordStat.averageBiasRating = lifetimeWordStat.totalBiasRating/playerStats.length;
-      lifetimeWordStat.averageBiasRating = Math.round(lifetimeWordStat.averageBiasRating * 1000) / 1000;
     }
   }
 

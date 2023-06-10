@@ -56,7 +56,6 @@ export class GameComponent implements OnInit {
   onNextWord() {
     this.getNextGameStatus();
     this.lastWordRight = undefined;
-    this.gameSetup.gameStatus = 'running';
   }
 
   onUserInformationSubmitted(userInformation: UserInformation) {
@@ -67,7 +66,7 @@ export class GameComponent implements OnInit {
 
   private getNextGameStatus() {
     // End game when all words shown & rating was shown
-    if (this.gameSetup.wordCount === this.gameSetup.wordsToGuess.length-1) {
+    if (this.gameSetup.wordCount === this.gameSetup.wordsToGuess.length-1 && this.gameSetup.gameStatus === 'paused') {
       this.gameSetup.gameStatus = 'ended';
     } else if (this.gameSetup.gameStatus === 'paused') {
       this.gameSetup.gameStatus = 'running';

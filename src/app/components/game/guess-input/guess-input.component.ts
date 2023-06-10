@@ -13,6 +13,8 @@ export class GuessInputComponent {
   gameStatus: Gamestatus = 'pregame';
   @Input()
   lastWordRight: boolean;
+  @Input()
+  word: string;
 
   value: string = '';
   onGuessSubmit () {
@@ -28,7 +30,7 @@ export class GuessInputComponent {
     } else if (this.gameStatus === 'running' && !this.lastWordRight) {
       return 'That\'s incorrect. What is your new guess?';
     }  else if (this.gameStatus === 'paused' && !this.lastWordRight) {
-      return 'Time\'s up. To succeed, press the button above.';
+      return 'Time\'s up. The word was ' + this.word + '. To succeed, press the button above.';
     }  else {
       return 'Start the game to guess'
     }
