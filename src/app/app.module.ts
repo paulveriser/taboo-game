@@ -31,10 +31,10 @@ import {MatRadioModule} from "@angular/material/radio";
 import {MatSliderModule} from "@angular/material/slider";
 
 const appRoute: Routes = [
-  {path: '', redirectTo: 'taboo-game/welcome', pathMatch: 'full'},
-  {path: 'taboo-game/welcome', component: WelcomeComponent},
-  {path: 'taboo-game/game', component: GameComponent},
-  {path: 'taboo-game/statistics', component: StatisticComponent}
+  {path: '', redirectTo: 'welcome', pathMatch: 'full'},
+  {path: 'welcome', component: WelcomeComponent},
+  {path: 'game', component: GameComponent},
+  {path: 'statistics', component: StatisticComponent}
 ]
 
 @NgModule({
