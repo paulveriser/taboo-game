@@ -1,6 +1,6 @@
 <div
   class="entry"
-  [class.wrong-guess]="(this.gameStatus === 'running' || this.gameStatus === 'paused') && lastWordRight === false"
+  [class.wrong-guess]="this.gameStatus === 'running' && lastWordRight === false || this.gameStatus === 'paused' && lastWordRight !== false"
   [class.right-guess]="this.gameStatus === 'paused' && lastWordRight"
 >
 

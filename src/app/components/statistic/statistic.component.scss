@@ -17,21 +17,12 @@
 
 .statistic-cards {
   display: grid;
-  grid-template-columns: repeat(4, 25%);
+  grid-template-columns: repeat(3, 33%);
   gap: 20px;
   padding: 0 75px 50px 75px;
 }
 
-@media(max-width: 1700px) {
-  .statistic-cards {
-    display: grid;
-    grid-template-columns: repeat(3, 33%);
-    gap: 20px;
-    padding: 0 75px 50px 75px;
-  }
-}
-
-@media(max-width: 1350px) {
+@media(max-width: 1440px) {
   .statistic-cards {
     display: grid;
     grid-template-columns: repeat(2, 50%);
