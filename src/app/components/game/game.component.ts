@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { GameSetup, GuessTracking} from "../../app.model";
+import {GameSetup, GuessTracking, RatedPrompt} from "../../app.model";
 import {BackendService} from "../../services/backend/backend.service";
 import {
   CHATGPT_WORD_DESCRIPTIONS,
@@ -19,6 +19,7 @@ export class GameComponent implements OnInit {
   gameSetup: GameSetup;
   startGuessTime: number;
   lastWordRight: boolean;
+  lastShownPrompt: string;
 
   constructor (private backendService: BackendService) {
   }
@@ -48,12 +49,29 @@ export class GameComponent implements OnInit {
       this.getNextGameStatus()
       // Wrong guess
     } else {
-      this.trackPlayersStats(this.gameSetup.wordsToGuess[this.gameSetup.wordCount].wordID, false, true);
+      this.trackPlayersStats(this.gameSetup.wordsToGuess[this.gameSetup.wordCount].wordID, false, true, guess.toLowerCase());
       this.lastWordRight = false;
     }
   }
 
-  onNextWord() {
+  setLastShownPrompt(prompt: string) {
+    this.lastShownPrompt = prompt;
+  }
+
+  onRatingSubmitted(rating: number) {
+    this.gameSetup.playerStat.guessTrackings.map(guessTracking => {
+      if(guessTracking.wordID === this.gameSetup.wordsToGuess[this.gameSetup.wordCount].wordID) {
+        return {
+          promptRating: guessTracking.promptRating = {
+            rating: rating,
+            prompt: this.lastShownPrompt
+          }
+        }
+      } else {
+        return guessTracking;
+      }
+    });
+    console.log(rating);
     this.getNextGameStatus();
     this.lastWordRight = undefined;
   }
@@ -77,12 +95,13 @@ export class GameComponent implements OnInit {
     }
   }
 
-  private trackPlayersStats(wordID: string, guessed: boolean, newAttempt: boolean) {
+  private trackPlayersStats(wordID: string, guessed: boolean, newAttempt: boolean, wrongGuess?: string) {
     this.gameSetup.playerStat.guessTrackings.map(guessTracking => {
       if(guessTracking.wordID === wordID) {
         return {
           guessed: guessTracking.guessed = guessed,
           attempts: newAttempt? guessTracking.attempts++: guessTracking.attempts,
+          wrongGuesses: wrongGuess? guessTracking.wrongGuesses.push(wrongGuess): guessTracking.wrongGuesses,
           timeToSuccess: guessed? guessTracking.timeToSuccess = this.getCurrentGuessTime(): guessTracking.timeToSuccess = undefined
         }
       } else {
@@ -107,8 +126,13 @@ export class GameComponent implements OnInit {
       guessTrackings.push({
         wordID: word.wordID,
         guessed: false,
+        wrongGuesses: [],
         attempts: 0,
-        timeToSuccess: 0
+        timeToSuccess: 0,
+        promptRating: {
+          rating: 0,
+          prompt: ''
+        }
       })
     });
     this.gameSetup = {

@@ -11,11 +11,16 @@
           {{ unit }}
         </div>
       </div>
-      <div class="word">
-        {{ value.wordID | getWordFromId}}
-      </div>
-      <div class="generator">
-        {{ value.wordID | getGeneratorFromId}}
+      <div class="word-infos">
+        <div class="word">
+          {{ value.wordID | getWordFromId}}
+        </div>
+        <div class="generator">
+          {{ value.wordID | getGeneratorFromId}}
+        </div>
+        <div class="description" *ngIf="value.wordDescription">
+          Description: {{ value.wordDescription }}
+        </div>
       </div>
     </mat-card-content>
   </mat-card>
