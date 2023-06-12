@@ -29,6 +29,7 @@ import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatSliderModule} from "@angular/material/slider";
+import { PromptRatingComponent } from './components/game/prompt-rating/prompt-rating.component';
 
 const appRoute: Routes = [
   {path: '', redirectTo: 'taboo-game/welcome', pathMatch: 'full'},
@@ -50,7 +51,8 @@ const appRoute: Routes = [
     GetWordFromIdPipe,
     GetGeneratorFromIdPipe,
     StatisticTableComponent,
-    UserInformationInputComponent
+    UserInformationInputComponent,
+    PromptRatingComponent
   ],
   imports: [
     BrowserModule,

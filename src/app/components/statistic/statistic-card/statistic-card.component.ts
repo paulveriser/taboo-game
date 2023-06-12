@@ -2,7 +2,8 @@ import {Component, Input} from '@angular/core';
 
 export interface HighlightValue {
   value: number,
-  wordID: string
+  wordID: string,
+  wordDescription?: string
 }
 
 @Component({
