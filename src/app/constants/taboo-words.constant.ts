@@ -42,13 +42,13 @@ export const HUMAN_WORD_DESCRIPTIONS: TabooWordDescription[] = [
     `When you have no worries and have everything you desire, then you feel ___ (noun).`]
   },
   {
-    wordID: 'h5-religion',
-    word: 'religion',
+    wordID: 'h5-prejudice',
+    word: 'prejudice',
     wordDescriptions: [
-    `It is some kind of belief system. This word is related to church or mosque. `, 
-    `a devotion to some higher being, such as a God.`,
-    `there are many forms of it, in every form a lot of people believe in one or more gods`,
-    `if you have belief in a higher power like God, then you have a ___`]
+    `This is a famous work by Jane Austen. Pride & ___`, 
+    `This word is kinda negative. It means when you don't really know about someone or something but you still have an idea about them. And the idea you have isn't really based on anything.`,
+    `(Negative) assumptions; mostly about people.`,
+    `If you have strong opinion to a specific group of people, that is not true and unfair.`]
   },
   {
     wordID: 'h6-bag',
@@ -100,52 +100,102 @@ export const CHATGPT_WORD_DESCRIPTIONS: TabooWordDescription[] = [
   {
     wordID: 'a1-love',
     word: 'love',
-    wordDescriptions: ['An AI generated prompt to guess the word love']
+    wordDescriptions: ['A deep connection that brings joy, passion, and a sense of completeness between individuals.']
   },
   {
     wordID: 'a2-truth',
     word: 'truth',
-    wordDescriptions: ['An AI generated prompt to guess the word truth']
+    wordDescriptions: ['The unwavering reality that unveils itself, serving as an unwavering beacon of certainty and understanding, transcending subjective perspectives and perceptions.']
   },
   {
     wordID: 'a3-imagination',
     word: 'imagination',
-    wordDescriptions: ['An AI generated prompt to guess the word imagination']
+    wordDescriptions: [' It is the realm where thoughts transcend the present, unlocking a boundless realm of possibilities and envisioning scenarios beyond the constraints of reality.']
   },
   {
     wordID: 'a4-happiness',
     word: 'happiness',
-    wordDescriptions: ['An AI generated prompt to guess the word happiness']
+    wordDescriptions: ["It is a state of profound contentment and inner fulfillment, characterized by a deep sense of well-being and harmony with one's surroundings and experiences."]
   },
   {
-    wordID: 'a5-religion',
-    word: 'religion',
-    wordDescriptions: ['An AI generated prompt to guess the word religion']
+    wordID: 'a5-prejudice',
+    word: 'prejudice',
+    wordDescriptions: ['It refers to the act of preconceiving negative judgments or attitudes towards individuals or groups, based on preexisting beliefs or assumptions, leading to unfair treatment or biased perceptions without considering their unique qualities or circumstances.']
   },
   {
     wordID: 'a6-bag',
     word: 'bag',
-    wordDescriptions: ['An AI generated prompt to guess the word bag']
+    wordDescriptions: ['A container designed to hold and carry personal belongings, typically characterized by its enclosed shape and often featuring handles or straps for easy transportation.']
   },
   {
     wordID: 'a7-desk',
     word: 'desk',
-    wordDescriptions: ['An AI generated prompt to guess the word desk']
+    wordDescriptions: ['A furniture piece designed for productive activities, typically featuring a flat surface and storage compartments, providing a dedicated space for tasks and organization in various settings.']
   },
   {
     wordID: 'a8-nature',
     word: 'nature',
-    wordDescriptions: ['An AI generated prompt to guess the word nature']
+    wordDescriptions: ['It encompasses the intricate tapestry of our surroundings, encompassing the vast ecosystem of Earth, the intricate interplay of elements, and the rhythmic patterns that govern the world around us.']
   },
   {
     wordID: 'a9-portrait',
     word: 'portrait',
-    wordDescriptions: ['An AI generated prompt to guess the word portrait']
+    wordDescriptions: ['A visual depiction that captures the essence and individuality of a subject, preserving their distinctive attributes and presence through artistic representation.']
   },
   {
     wordID: 'a10-container',
     word: 'container',
-    wordDescriptions: ['An AI generated prompt to guess the word container']
+    wordDescriptions: ['An object designed to hold and enclose items or substances, often possessing a specific shape or structure for efficient storage and convenient handling.']
+  },
+  {
+    wordID: 'a11-server',
+    word: 'server',
+    wordDescriptions: ['A device or system that processes and responds to requests, providing resources or delivering information to other connected devices within a network, facilitating communication and data exchange between various components.']
+  },
+  {
+    wordID: 'a12-download',
+    word: 'download',
+    wordDescriptions: ['The action of acquiring or obtaining digital content or files from a remote source to a local device, enabling the retrieval and availability of specific data or resources for offline use or further manipulation.']
+  },
+  {
+    wordID: 'a13-hardware',
+    word: 'hardware',
+    wordDescriptions: ['It refers to the tangible components and physical devices that constitute a computer system, encompassing elements such as storage devices, input/output peripherals, and circuitry, playing a vital role in the functionality and operation of the overall system.']
+  },
+  {
+    wordID: 'a14-array',
+    word: 'array',
+    wordDescriptions: ['An orderly arrangement or grouping of objects or values, organized in a systematic manner to enable efficient organization and easy access, allowing for effective handling and manipulation of the represented entities.']
+  },
+  {
+    wordID: 'a15-decryption',
+    word: 'decryption',
+    wordDescriptions: ['It involves deciphering encrypted data, employing specific procedures or mechanisms to convert obscured information back to its original, understandable form, enabling access to previously encoded content.']
+  },
+  {
+    wordID: 'a16-sad',
+    word: 'sad',
+    wordDescriptions: ["A state of emotional heaviness or melancholy, where one's spirits are subdued and a sense of sorrow or longing lingers, often accompanied by a diminished sense of joy or vitality."]
+  },
+  {
+    wordID: 'a17-excited',
+    word: 'excited',
+    wordDescriptions: ['A state of heightened anticipation and lively anticipation, where a sense of eager energy and positive expectation permeates, often accompanying the prospect of something delightful or invigorating.']
+  },
+  {
+    wordID: 'a18-shock',
+    word: 'shock',
+    wordDescriptions: ["A sudden and jolting experience that leaves one profoundly stunned or taken aback, often characterized by an overwhelming sense of disbelief or profound impact on one's emotional or mental state."]
+  },
+  {
+    wordID: 'a19-relaxed',
+    word: 'relaxed',
+    wordDescriptions: ["A state of tranquility and ease, where one's mind and body find solace in a peaceful environment, fostering a sense of inner harmony and a release from tension or stress."]
+  },
+  {
+    wordID: 'a20-fear',
+    word: 'fear',
+    wordDescriptions: ["A profound sense of unease or apprehension that arises from the anticipation of undesirable or unsettling circumstances, often accompanied by a heightened state of alertness or caution."]
   }
 ]
 

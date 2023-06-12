@@ -21,6 +21,13 @@ export interface PlayerStat {
 export interface GuessTracking {
   wordID: string;
   guessed: boolean;
+  wrongGuesses: string[];
   attempts: number;
   timeToSuccess: number;
+  promptRating: RatedPrompt;
+}
+
+export interface RatedPrompt {
+  rating: number;
+  prompt: string;
 }

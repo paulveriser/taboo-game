@@ -1,0 +1,25 @@
+<div class="entry">
+  <div class="rating">
+    <h2>To what extent do you think the prompt aligns to your personal knowledge/experience?</h2>
+    <div class="stars">
+      <button
+        *ngFor="let rating of [1,2,3,4,5]"
+        (click)="setPromptRating(rating)"
+        mat-icon-button
+        class="star-button">
+        <mat-icon
+          class="star"
+          [class.selected]="promptRating >= rating"
+        >star</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <button
+    (click)="onSubmitRatings()"
+    mat-raised-button
+    class="submit-button"
+  >
+    Submit Rating
+  </button>
+</div>

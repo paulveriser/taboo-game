@@ -19,7 +19,7 @@
 .content {
   height: 100%;
   display: grid;
-  grid-template-rows: 75% 12.5% 12.5%;
+  grid-template-rows: 60% 40%;
 
   .stat-value {
     display: flex;
@@ -43,13 +43,15 @@
     }
   }
 
-  .word,
-  .generator {
+  .word-infos {
     font-size: 20px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
     font-family: "Urbanist-Regular";
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 10px;
   }
 }
 

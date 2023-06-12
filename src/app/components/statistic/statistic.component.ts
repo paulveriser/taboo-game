@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {BackendService} from "../../services/backend/backend.service";
-import {GuessTracking, PlayerStat} from "../../app.model";
+import {GuessTracking, PlayerStat, RatedPrompt} from "../../app.model";
 import {ALL_WORD_DESCRIPIONS} from "../../constants/taboo-words.constant";
 import {HighlightValue} from "./statistic-card/statistic-card.component";
 
@@ -17,6 +17,8 @@ export interface LifetimeWordStatistics  {
   averageTimeToSuccess: number;
   minimumTimeToSuccess: number;
   maximumTimeToSuccess: number;
+  totalRatings: any[];
+  averageRatings: RatedPrompt[];
 }
 
 @Component({
@@ -110,6 +112,24 @@ export class StatisticComponent implements OnInit {
     return mostUnsolved;
   }
 
+  getBestPromptRating() {
+    let bestPromptRating: HighlightValue = {value: 0, wordID: ''};
+    for (let lifetimeWordStat of this.lifeTimeWordStats) {
+      if(lifetimeWordStat.averageRatings){
+        for (let rating of lifetimeWordStat.averageRatings) {
+          if (rating.rating > bestPromptRating.value) {
+            bestPromptRating = {
+              value: rating.rating,
+              wordID: lifetimeWordStat.wordID,
+              wordDescription: rating.prompt
+            }
+          }
+        }
+      }
+    }
+    return bestPromptRating;
+  }
+
   getTotalAttendences(): HighlightValue {
     return {value: this.totalAttendences, wordID: ''};
   }
@@ -118,6 +138,14 @@ export class StatisticComponent implements OnInit {
     this.totalAttendences = playerStats.length;
     this.lifeTimeWordStats = [];
     for (let word of ALL_WORD_DESCRIPIONS) {
+      let totalRatings = [];
+      for(let wordDescription of word.wordDescriptions) {
+        totalRatings.push({
+          prompt: wordDescription,
+          rating: 0,
+          count: 0
+        })
+      }
       this.lifeTimeWordStats.push({
         wordID: word.wordID,
         timesGuessedRight: 0,
@@ -131,6 +159,8 @@ export class StatisticComponent implements OnInit {
         averageTimeToSuccess: 0,
         minimumTimeToSuccess: 999,
         maximumTimeToSuccess: 0,
+        totalRatings: totalRatings,
+        averageRatings: []
       })
     }
 
@@ -147,6 +177,12 @@ export class StatisticComponent implements OnInit {
       lifetimeWordStat.averageTimeToSuccess = Math.round(lifetimeWordStat.averageTimeToSuccess * 1000) / 1000;
       lifetimeWordStat.averageAttempts = lifetimeWordStat.totalAttempts/playerStats.length;
       lifetimeWordStat.averageAttempts = Math.round(lifetimeWordStat.averageAttempts * 1000) / 1000;
+      for(let rating of lifetimeWordStat.totalRatings) {
+        lifetimeWordStat.averageRatings.push({
+          prompt: rating.prompt,
+          rating: (rating.rating/rating.count)
+        })
+      }
     }
   }
 
@@ -181,6 +217,16 @@ export class StatisticComponent implements OnInit {
             }
             if (guessTracking.timeToSuccess < lifetimeWordStat.minimumTimeToSuccess) {
               lifetimeWordStat.minimumTimeToSuccess = guessTracking.timeToSuccess;
+            }
+          }
+
+          // PromptRating Statistics
+          if(guessTracking.promptRating) {
+            for(let rating of lifetimeWordStat.totalRatings) {
+              if(rating.prompt === guessTracking.promptRating.prompt) {
+                rating.rating += guessTracking.promptRating.rating;
+                rating.count++;
+              }
             }
           }
         }
