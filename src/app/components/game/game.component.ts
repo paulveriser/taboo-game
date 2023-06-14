@@ -120,7 +120,8 @@ export class GameComponent implements OnInit {
   }
 
   private resetGame() {
-    const words = this.chooseWords(4);
+    const numberOfWords = 8;
+    const words = this.chooseWords(numberOfWords);
     let guessTrackings: GuessTracking[] = []
     words.forEach((word) => {
       guessTrackings.push({
@@ -138,7 +139,7 @@ export class GameComponent implements OnInit {
     this.gameSetup = {
       gameStatus: 'pregame',
       timePerWord: 30,
-      numberOfWords: 8,
+      numberOfWords: numberOfWords,
       wordsToGuess: words,
       wordCount: 0,
       playerStat: {
