@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {GameSetup, GuessTracking, RatedPrompt} from "../../app.model";
+import {GameSetup, GuessTracking} from "../../app.model";
 import {BackendService} from "../../services/backend/backend.service";
 import {
   CHATGPT_WORD_DESCRIPTIONS,
@@ -137,8 +137,8 @@ export class GameComponent implements OnInit {
     });
     this.gameSetup = {
       gameStatus: 'pregame',
-      timePerWord: 20,
-      numberOfWords: 4,
+      timePerWord: 30,
+      numberOfWords: 8,
       wordsToGuess: words,
       wordCount: 0,
       playerStat: {
