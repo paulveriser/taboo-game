@@ -121,7 +121,7 @@ export class GameComponent implements OnInit {
 
   private resetGame() {
     const numberOfWords = 8;
-    const words = this.chooseWords(numberOfWords);
+    const words = this.chooseWords();
     let guessTrackings: GuessTracking[] = []
     words.forEach((word) => {
       guessTrackings.push({
@@ -154,7 +154,7 @@ export class GameComponent implements OnInit {
     }
   }
 
-  private chooseWords(numberOfWords: number): TabooWordDescription[] {
+  private chooseWords(): TabooWordDescription[] {
     // shuffle description list
     const shuffledHuman = HUMAN_WORD_DESCRIPTIONS.sort(() => 0.5 - Math.random());
     let shuffledChatGPT = CHATGPT_WORD_DESCRIPTIONS.sort(() => 0.5 - Math.random());
