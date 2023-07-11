@@ -121,7 +121,7 @@ export class GameComponent implements OnInit {
 
   private resetGame() {
     const numberOfWords = 8;
-    const words = this.chooseWords(numberOfWords);
+    const words = this.chooseWords();
     let guessTrackings: GuessTracking[] = []
     words.forEach((word) => {
       guessTrackings.push({
@@ -154,19 +154,38 @@ export class GameComponent implements OnInit {
     }
   }
 
-  private chooseWords(numberOfWords: number): TabooWordDescription[] {
+  private chooseWords(): TabooWordDescription[] {
     // shuffle description list
     const shuffledHuman = HUMAN_WORD_DESCRIPTIONS.sort(() => 0.5 - Math.random());
     let shuffledChatGPT = CHATGPT_WORD_DESCRIPTIONS.sort(() => 0.5 - Math.random());
 
-    // Choose half of desired words from human
-    const humanDescriptions = shuffledHuman.slice(0, numberOfWords/2)
+    // Choose one from each category human
+    let humanDescriptions: TabooWordDescription[] = [];
+    let categoriesHuman: string[] = [];
+    for (let word of shuffledHuman) {
+      if (!categoriesHuman.includes(word.category)) {
+        humanDescriptions.push(word);
+        categoriesHuman.push(word.category);
+      }
+    }
 
     // prevent same words
     for (let humanDescription of humanDescriptions) {
       shuffledChatGPT = shuffledChatGPT.filter(chatGPTDescription => chatGPTDescription.word !== humanDescription.word);
     }
+
+    // Choose one from each category chatGPT
+    let chatGPTDescriptions: TabooWordDescription[] = [];
+    let categoriesChatGPT: string[] = [];
+    for (let word of shuffledChatGPT) {
+      if (!categoriesChatGPT.includes(word.category)) {
+        chatGPTDescriptions.push(word);
+        categoriesChatGPT.push(word.category);
+      }
+    }
+
     // Get the other half of desired number of words from filtered chatGPT list
-    return humanDescriptions.concat(shuffledChatGPT.slice(0, numberOfWords/2)).sort(() => 0.5 - Math.random());
+    console.log(humanDescriptions.concat(chatGPTDescriptions).sort(() => 0.5 - Math.random()));
+    return humanDescriptions.concat(chatGPTDescriptions).sort(() => 0.5 - Math.random());
   }
 }
