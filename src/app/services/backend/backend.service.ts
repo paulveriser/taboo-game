@@ -11,7 +11,7 @@ export class BackendService {
   constructor(private httpClient: HttpClient) { }
 
   uploadPlayerStats(data: PlayerStat) {
-    this.httpClient.post('https://taboo-game-465a6-default-rtdb.europe-west1.firebasedatabase.app/trackings.json', data)
+    this.httpClient.post('https://taboo-game-public-d7baf-default-rtdb.europe-west1.firebasedatabase.app/trackings.json', data)
       .subscribe((response) => {
         console.log(response);
       }
@@ -19,7 +19,7 @@ export class BackendService {
   }
 
   getPlayerStats() {
-    return this.httpClient.get('https://taboo-game-465a6-default-rtdb.europe-west1.firebasedatabase.app/trackings.json')
+    return this.httpClient.get('https://taboo-game-public-d7baf-default-rtdb.europe-west1.firebasedatabase.app/trackings.json')
       .pipe(map((response: {[key: string]: PlayerStat}) => {
         const data = [];
         for(const key in response) {
