@@ -71,7 +71,6 @@ export class GameComponent implements OnInit {
         return guessTracking;
       }
     });
-    console.log(rating);
     this.getNextGameStatus();
     this.lastWordRight = undefined;
   }
